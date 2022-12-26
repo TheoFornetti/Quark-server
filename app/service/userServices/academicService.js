@@ -1,4 +1,9 @@
 const {academicActivity} = require("../../models/index")
+async function getAcademics(professionalProfileId){
+  var rta = await academicActivity.findAll({where:{professionalProfileId}})
+  return rta
+}
+
 async function createAcademics(professionalProfileId, academics){
   try{
     var rta = await academicActivity.create({
@@ -39,4 +44,4 @@ async function deleteAcademics(id){
     return rta
 }
 
-module.exports = {createAcademics, updateAcademics, deleteAcademics}
+module.exports = {getAcademics, createAcademics, updateAcademics, deleteAcademics}

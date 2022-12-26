@@ -6,13 +6,14 @@ const {
   createUser,
   updateUser,
   getProfessionalProfile,
+  getUserFullInfo,
 } = require("../../service/userServices/professionalProfileService");
 
 var userController = {
   getInfo: async (req, res) => {
     try {
-      var rta = await getProfessionalProfile(req.body.id);
-      res.send(rta);
+      var user = await getUserFullInfo(req.params.id)
+      res.send(user);
     } catch (err) {
       throw err;
     }

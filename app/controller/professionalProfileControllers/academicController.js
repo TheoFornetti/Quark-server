@@ -1,6 +1,16 @@
-const { createAcademics, updateAcademics, deleteAcademics } = require("../../service/userServices/academicService")
+const { createAcademics, updateAcademics, deleteAcademics, getAcademics } = require("../../service/userServices/academicService")
 
 var academicController = {
+    read:async (req,res)=>{
+        try{
+            console.log(req.params.id)
+            const rta = await getAcademics(req.params.id)
+            res.send(rta)
+        }catch(err){
+            console.log(err)
+            res.sendStatus(500)
+        }
+    },
     create: async (req,res) =>{
         try{
             var rta = await createAcademics(req.body.userid, req.body.academic)

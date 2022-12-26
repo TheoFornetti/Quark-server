@@ -1,5 +1,10 @@
 const {laborActivity} = require("../../models/index")
 
+async function getLabors(professionalProfileId){
+    var rta = await laborActivity.findAll({where:{professionalProfileId}})
+    return rta
+}
+
 async function createLabors(professionalProfileId, labors){
     var rta = await laborActivity.create({
         company: labors.company,
@@ -30,4 +35,4 @@ async function deleteLabors(id){
 
 
 
-module.exports = {createLabors, updateLabors, deleteLabors}
+module.exports = {getLabors, createLabors, updateLabors, deleteLabors}

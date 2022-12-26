@@ -1,5 +1,10 @@
 const {independentActivity} = require("../../models/index")
 
+async function getIndependent(professionalProfileId){
+    var rta = await independentActivity.findAll({where: {professionalProfileId}})
+    return rta
+}
+
 async function createIndependent(professionalProfileId, independent){
     var rta = await independentActivity.create({
         beginDate: independent.beginDate,
@@ -29,4 +34,4 @@ async function deleteIndependent(id){
 
 
 
-module.exports = {createIndependent, updateIndependent, deleteIndependent}
+module.exports = {getIndependent, createIndependent, updateIndependent, deleteIndependent}

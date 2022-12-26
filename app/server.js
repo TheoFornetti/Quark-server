@@ -5,7 +5,9 @@ const loginRoutes = require("./routes/login");
 const academicsRoutes = require("./routes/professionalProfile/academicsActivitys");
 const independetRoutes = require("./routes/professionalProfile/independentActivitys");
 const laborsRoutes = require("./routes/professionalProfile/laborsActivitys");
+const languageRouter = require("./routes/professionalProfile/language");
 const sesskeyRoutes = require("./routes/professionalProfile/sesskey");
+const skillRoutes = require("./routes/professionalProfile/skill");
 const userRoutes = require("./routes/professionalProfile/userRoutes");
 
 const Port = process.env.port || 3030
@@ -20,6 +22,9 @@ app.use("/login",loginRoutes)
 app.use("/academics",academicsRoutes)
 app.use("/labors", laborsRoutes)
 app.use("/independents", independetRoutes)
+app.use("/skill", skillRoutes)
+app.use("/language", languageRouter)
+
 
 app.listen(Port, ()=>{
     sequelize.sync({force:false}).then(()=>{

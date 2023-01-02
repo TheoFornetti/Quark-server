@@ -13,17 +13,18 @@ var academicController = {
     },
     create: async (req,res) =>{
         try{
-            var rta = await createAcademics(req.body.userid, req.body.academic)
+            var rta = await createAcademics(req.body.userid, req.body.academics)
             res.send(rta)
         }catch(err){
             throw err
         }
     },
     update: async(req,res) =>{
-        var rta = await updateAcademics(req.body.id, req.body.academic)
+        var rta = await updateAcademics(req.body.id, req.body.academics)
         res.send(rta)
     },
     delete: async(req,res) =>{
+        console.log("Hola")
         var rta = await deleteAcademics(req.params.id)
         res.sendStatus(200)
     }

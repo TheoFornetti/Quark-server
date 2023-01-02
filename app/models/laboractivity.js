@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   laborActivity.init({
     company: DataTypes.STRING,
+    description: DataTypes.STRING,
     beginDate: DataTypes.DATE,
     endDate: DataTypes.DATE,
     state: DataTypes.STRING,

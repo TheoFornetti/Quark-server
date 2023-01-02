@@ -1,7 +1,9 @@
 const express = require("express");
+const cors = require("cors")
 const fetch = require("node-fetch")
 const {sequelize } = require("./models/index");
 const loginRoutes = require("./routes/login");
+const cookieParser = require("cookie-parser")
 const academicsRoutes = require("./routes/professionalProfile/academicsActivitys");
 const independetRoutes = require("./routes/professionalProfile/independentActivitys");
 const laborsRoutes = require("./routes/professionalProfile/laborsActivitys");
@@ -9,12 +11,20 @@ const languageRouter = require("./routes/professionalProfile/language");
 const sesskeyRoutes = require("./routes/professionalProfile/sesskey");
 const skillRoutes = require("./routes/professionalProfile/skill");
 const userRoutes = require("./routes/professionalProfile/userRoutes");
+const ParametersRoutes = require("./routes/professionalProfile/skillParameter");
 
-const Port = process.env.port || 3030
+const Port = process.env.PORT || 3030
 
 const app = express();
+app.use(cors({
+    origin: ["http://localhost:3000"],
+    methods:["GET","POST","PUT","DELETE","UPDATE"],
+    credentials: true
+}))
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser())
 
 app.use("/user", userRoutes)
 app.use("/sesskey",sesskeyRoutes)
@@ -22,13 +32,15 @@ app.use("/login",loginRoutes)
 app.use("/academics",academicsRoutes)
 app.use("/labors", laborsRoutes)
 app.use("/independents", independetRoutes)
-app.use("/skill", skillRoutes)
-app.use("/language", languageRouter)
+app.use("/skills", skillRoutes)
+app.use("/languages", languageRouter)
+app.use("/parameters", ParametersRoutes)
 
 
-app.listen(Port, ()=>{
+app.listen(Port, (req,res)=>{
     sequelize.sync({force:false}).then(()=>{
         console.log("Connection has been stablish")
     }).then()
+    
     console.log("Working on port: " + Port)
 })

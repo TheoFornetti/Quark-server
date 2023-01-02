@@ -15,6 +15,7 @@ module.exports = (sequelize, DataTypes) => {
   }
   independentActivity.init({
     beginDate: DataTypes.DATE,
+    description: DataTypes.STRING,
     endDate: DataTypes.DATE,
     state: DataTypes.STRING,
     title: DataTypes.STRING

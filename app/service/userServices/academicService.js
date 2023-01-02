@@ -37,9 +37,10 @@ async function updateAcademics(id, academics){
 }
 
 async function deleteAcademics(id){
-    var rta = await academicActivity.destroy({
-        where:{id}
-    })
+  console.log(id)
+  var rta = await academicActivity.destroy({
+      where:{id}
+  })
 
     return rta
 }

@@ -12,7 +12,7 @@ var skillController = {
     },
     create: async (req,res)=>{
         try{
-            var rta = await createSkill(req.body.userid, req.body.skill)
+            var rta = await createSkill(req.body.userid, req.body.skills)
             res.send(rta)
         }catch(err){
             res.sendStatus(500)
@@ -21,7 +21,7 @@ var skillController = {
     },
     update: async (req,res)=>{
        try{
-        await updateSkill(req.body.id, req.body.skill)
+        await updateSkill(req.body.id, req.body.skills)
         res.sendStatus(200)
        }catch(err){
         console.log(err)

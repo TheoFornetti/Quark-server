@@ -4,7 +4,7 @@ var sesskeyController = {
     getSesskey: async (req,res)=>{
         try{
             var sesskey = await getSessionKey(req.params.id)
-        res.send(sesskey)
+            res.send(sesskey[0])
         }catch(err){
             throw err
         }

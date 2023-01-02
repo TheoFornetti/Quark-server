@@ -12,7 +12,7 @@ var laborController = {
     },
     create: async (req,res)=>{
        try{
-        var rta = await createLabors(req.body.userid, req.body.labor)
+        var rta = await createLabors(req.body.userid, req.body.labors)
         res.send(rta)
        }catch(err){
         console.log(err)
@@ -22,7 +22,7 @@ var laborController = {
 
     update: async (req,res)=>{
         try{
-            var rta = await updateLabors(req.body.id, req.body.labor)
+            var rta = await updateLabors(req.body.id, req.body.labors)
             res.send(rta)
         }catch(err){
             console.log(err)

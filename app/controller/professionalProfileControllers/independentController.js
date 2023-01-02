@@ -13,7 +13,7 @@ var independentController = {
 
     create: async (req,res)=>{
        try{
-        var rta = await createIndependent(req.body.userid, req.body.independent)
+        var rta = await createIndependent(req.body.userid, req.body.independents)
         res.send(rta)
        }catch(err){
         res.sendStatus(500)
@@ -22,7 +22,7 @@ var independentController = {
 
     update: async (req,res)=>{
         try{
-            var rta = await updateIndependent(req.body.id, req.body.independent)
+            var rta = await updateIndependent(req.body.id, req.body.independents)
             res.send(rta)
         }catch(err){
             res.sendStatus(500)

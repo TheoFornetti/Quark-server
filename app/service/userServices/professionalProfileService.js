@@ -11,7 +11,7 @@ async function getUserFullInfo(id){
     var labors = await getLabors(id);
     var independents = await getIndependent(id)
     var skills = await getSkill(id)
-    var language = await getLanguage(id)
+    var languages = await getLanguage(id)
 
     var user = {
         profile,
@@ -19,16 +19,12 @@ async function getUserFullInfo(id){
         labors,
         independents,
         skills,
-        language
+        languages
     }
 
     return user
 }
 
-async function getProfessionalProfile(id){
-    
-    return profile
-}
 
 async function createUser(id, biography, score, nickname, birthdate){
     await professionalProfile.create({
@@ -40,7 +36,8 @@ async function createUser(id, biography, score, nickname, birthdate){
     });
 }
 
-function updateUser(id, biography, score, nickname, birthdate){
+async function updateUser(id, biography, score, nickname, birthdate){
+    var response = await fetch("http://localhost/moodle/webservice/rest/server.php?wstoken=682a2163a234ce9d0df794c359df06e3&wsfunction=core_user_update_users&moodlewsrestformat=json&users[0][id]=8&users[0][email]=mocoDeMono1997@gmail.com")
     professionalProfile.update({
         biography,
         score,
@@ -50,8 +47,8 @@ function updateUser(id, biography, score, nickname, birthdate){
         where: {
             id
         }
-      });
+    });
 }
 
 
-module.exports = {getUserFullInfo, createUser, updateUser, getProfessionalProfile}
+module.exports = {getUserFullInfo, createUser, updateUser}

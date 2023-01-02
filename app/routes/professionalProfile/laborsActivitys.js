@@ -4,7 +4,7 @@ const auth = require("../../middlewares/auth")
 var laborsRoutes = Router()
 
 laborsRoutes.get("/:id", laborController.read)
-laborsRoutes.post("/create",auth, laborController.create)
+laborsRoutes.post("/create", laborController.create)
 laborsRoutes.put("/update", laborController.update)
 laborsRoutes.delete("/delete/:id", laborController.delete)
 

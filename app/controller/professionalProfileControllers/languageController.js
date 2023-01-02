@@ -12,7 +12,7 @@ var languageController = {
     },
     create: async (req,res) =>{
         try{
-            var rta = await createLanguage(req.body.userid, req.body.language)
+            var rta = await createLanguage(req.body.userid, req.body.languages)
             res.send(rta)
         }catch(err){
             console.log(err)
@@ -21,7 +21,7 @@ var languageController = {
     },
     update: async (req,res) =>{
         try{
-            await updateLanguage(req.body.id, req.body.language)
+            await updateLanguage(req.body.id, req.body.languages)
             res.sendStatus(200)
         }catch(err){
             console.log(err)

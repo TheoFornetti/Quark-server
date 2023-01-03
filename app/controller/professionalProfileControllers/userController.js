@@ -25,7 +25,8 @@ var userController = {
         req.body.biography,
         req.body.score,
         req.body.nickname,
-        req.body.birthdate
+        req.body.birthdate,
+        req.body.career
       );
       res.sendStatus(200);
     } catch (err) {

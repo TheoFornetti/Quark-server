@@ -12,6 +12,9 @@ const sesskeyRoutes = require("./routes/professionalProfile/sesskey");
 const skillRoutes = require("./routes/professionalProfile/skill");
 const userRoutes = require("./routes/professionalProfile/userRoutes");
 const ParametersRoutes = require("./routes/professionalProfile/skillParameter");
+const eventsRoutes = require("./routes/EventsRoutes/eventRoutes");
+const studentEventRoutes = require("./routes/EventsRoutes/studentEventRoutes");
+
 
 const Port = process.env.PORT || 3030
 
@@ -35,6 +38,8 @@ app.use("/independents", independetRoutes)
 app.use("/skills", skillRoutes)
 app.use("/languages", languageRouter)
 app.use("/parameters", ParametersRoutes)
+app.use("/events", eventsRoutes)
+app.use("/studentEvents", studentEventRoutes)
 
 
 app.listen(Port, (req,res)=>{

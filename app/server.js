@@ -14,6 +14,7 @@ const userRoutes = require("./routes/professionalProfile/userRoutes");
 const ParametersRoutes = require("./routes/professionalProfile/skillParameter");
 const eventsRoutes = require("./routes/EventsRoutes/eventRoutes");
 const studentEventRoutes = require("./routes/EventsRoutes/studentEventRoutes");
+const newsRoutes = require("./routes/newsRoutes/newsRoutes");
 
 
 const Port = process.env.PORT || 3031
@@ -40,6 +41,7 @@ app.use("/languages", languageRouter)
 app.use("/parameters", ParametersRoutes)
 app.use("/events", eventsRoutes)
 app.use("/studentEvents", studentEventRoutes)
+app.use("/news", newsRoutes)
 
 
 app.listen(Port, (req,res)=>{

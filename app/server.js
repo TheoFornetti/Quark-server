@@ -16,7 +16,7 @@ const eventsRoutes = require("./routes/EventsRoutes/eventRoutes");
 const studentEventRoutes = require("./routes/EventsRoutes/studentEventRoutes");
 
 
-const Port = process.env.PORT || 3030
+const Port = process.env.PORT || 3031
 
 const app = express();
 app.use(cors({
@@ -43,9 +43,11 @@ app.use("/studentEvents", studentEventRoutes)
 
 
 app.listen(Port, (req,res)=>{
-    sequelize.sync({force:false}).then(()=>{
+    sequelize.sync({alter:true}).then(()=>{
         console.log("Connection has been stablish")
-    }).then()
+    }).catch(err=>{
+        console.log(err)
+    })
     
     console.log("Working on port: " + Port)
 })

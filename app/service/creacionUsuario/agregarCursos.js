@@ -19,16 +19,29 @@ async function agregarCursos(usuario) {
               values[i].timeenrolled * 1000
             ).toLocaleDateString();
 
-            curso = {
-              fullName: cursos.fullname,
-              lastaccess: cursos.lastaccess,
-              idCurso: cursos.id,
-              progress: cursos.progress,
-              timestarted: date,
-              url: "",
-              
-            };
-            usuario.listaCurso.push(curso);
+            if(cursos.fullname.match("Quark Game Jam")){
+              curso = {
+                fullName: cursos.fullname,
+                lastaccess: cursos.lastaccess,
+                idCurso: cursos.id,
+                progress: cursos.progress,
+                timestarted: date,
+                url: "",
+                
+              };
+              usuario.listaGameJams.push(curso);
+            }else{
+              curso = {
+                fullName: cursos.fullname,
+                lastaccess: cursos.lastaccess,
+                idCurso: cursos.id,
+                progress: cursos.progress,
+                timestarted: date,
+                url: "",
+                
+              };
+              usuario.listaCurso.push(curso);
+            }
           }
         }
       });

@@ -38,6 +38,13 @@ async function mostrarImg(usuarioCursos){
     let url = data.find(element => element.id == curso.idCurso)
     curso.url = url.url
   })
+
+  if(usuarioCursos.listaGameJams.length > 0){
+    usuarioCursos.listaGameJams.forEach(curso =>{
+      let url = data.find(element => element.id == curso.idCurso)
+      curso.url = url.url
+    })
+  }
   
   return usuarioCursos 
 }

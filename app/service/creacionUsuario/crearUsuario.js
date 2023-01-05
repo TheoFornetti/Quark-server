@@ -5,6 +5,7 @@ async function crearUsuario(email) {
   let usuario = {};
   let listaCurso = [];
   let badgesList = [];
+  let listaGameJams = []
   let curso = {};
 
   if (typeof(email) == "number") {
@@ -31,6 +32,7 @@ async function crearUsuario(email) {
       phone: data.users[0].phone2,
       badgesList,
       listaCurso,
+      listaGameJams
     };
     
     return usuario;

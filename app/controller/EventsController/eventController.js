@@ -9,8 +9,8 @@ const {
 var eventController = {
   create: async (req, res) => {
     try {
-      await createEvent(req.body.event);
-      res.sendStatus(200);
+      var rta = await createEvent(req.body.event);
+      res.send(rta)
     } catch (err) {
       res.json({ message: "Unable to create this Event" });
     }

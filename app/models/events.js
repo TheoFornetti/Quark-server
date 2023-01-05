@@ -19,7 +19,10 @@ module.exports = (sequelize, DataTypes) => {
     description: DataTypes.STRING,
     eventDate: DataTypes.DATE,
     link: DataTypes.STRING,
-    state: DataTypes.STRING,
+    state: {
+      type: DataTypes.INTEGER,
+      defaultValue: 0
+    },
     visibility: {
       type: DataTypes.INTEGER,
       defaultValue: 0

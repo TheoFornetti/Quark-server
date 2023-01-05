@@ -3,7 +3,7 @@ const {events}= require("../../models/index")
 
 async function createEvent(event){
     try{
-        await events.create({
+        var rta = await events.create({
             title: event.title,
             description: event.description,
             eventDate: event.eventDate,
@@ -11,6 +11,7 @@ async function createEvent(event){
             state: event.state,
             visibility: event.visibility
         })
+        return rta
     }catch(err){
         throw err
     }

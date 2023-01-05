@@ -6,7 +6,7 @@ module.exports = {
   password: process.env.DB_PASSWORD|| "contra",
   database: process.env.DB_DATABASE||"sequelize",
   host: process.env.DB_HOST||"localhost",
-  // port: 6517 || 3036,
+  port: 6517 || 3036,
   dialect:  process.env.DB_DIALECT||"mysql",
   
   // Configurar Seeds

@@ -8,6 +8,10 @@ const { getLabors } = require("./laborsService");
 const { getLanguage } = require("./languageService");
 const {  getSkill } = require("./skillService");
 
+require('dotenv').config()
+const sgMail = require ('@sendgrid/mail')
+sgMail.setApiKey(process.env.SENDGRID_API_KEY)
+
 
 async function getUserFullInfo(id){
     var options = {
@@ -106,6 +110,26 @@ async function updateUser(professionalProfileId, generalData){
 
     
    
+}
+
+const sendMail = async (msg) =>{
+    /*
+    El msg se pasa asi
+    {
+        to:"theofornetti2001@gmail.com",
+        from:"franco@quarkacademy.com.ar",
+        subject:"Welcome",
+        text:"Holaaa, que onda todo bien?"
+    } */
+    try {
+        await sgMail.send(msg)
+        console.log("Message sent successfully")
+    } catch (err){
+        console.log(err)
+        if (err.response){
+            console.error(err.response.body)
+        }
+    }
 }
 
 

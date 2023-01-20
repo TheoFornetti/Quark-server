@@ -15,9 +15,11 @@ const ParametersRoutes = require("./routes/professionalProfile/skillParameter");
 const eventsRoutes = require("./routes/EventsRoutes/eventRoutes");
 const studentEventRoutes = require("./routes/EventsRoutes/studentEventRoutes");
 const newsRoutes = require("./routes/newsRoutes/newsRoutes");
+const tagRoutes = require("./routes/EventsRoutes/tagsRoutes");
+const userImg = require("./routes/imgRoutes/userImgRoutes")
 
 
-const Port = process.env.PORT || 3031
+const Port = process.env.PORT || 8080
 
 const app = express();
 app.use(cors({
@@ -42,10 +44,12 @@ app.use("/parameters", ParametersRoutes)
 app.use("/events", eventsRoutes)
 app.use("/studentEvents", studentEventRoutes)
 app.use("/news", newsRoutes)
+app.use("/tags", tagRoutes)
+app.use("/userImg", userImg)
 
 
 app.listen(Port, (req,res)=>{
-    sequelize.sync({alter:true}).then(()=>{
+    sequelize.sync({force:false}).then(()=>{
         console.log("Connection has been stablish")
     }).catch(err=>{
         console.log(err)

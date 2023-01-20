@@ -14,18 +14,52 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   academicActivity.init({
-    institution: DataTypes.STRING,
-    description: DataTypes.STRING,
-    beginDate: DataTypes.DATE,
-    endDate: DataTypes.DATE,
+    institution: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{len: {
+        args:[2,50],
+        msg: "El nombre de la institucion tiene que tener entre 6 y 50 caracteres"
+      }}
+    },
+    description: {
+      type: DataTypes.STRING,
+      allowNull: true,
+      validate:{len: {
+        args:[0,100],
+        msg: "La descripcion no puede tener mas de 100 caracteres"
+      }}
+    },
+    beginDate: {
+      type: DataTypes.DATE,
+      allowNull: false,
+      
+    },
+    endDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      validate:{
+        dateValidator() {
+          var fechaInicial = new Date(this.beginDate)
+          var fechaFinal = new Date(this.endDate) 
+        if (fechaInicial>fechaFinal) {
+          throw new Error("La fecha de inicion no puede ser mayor que la fecha de fin");
+        }
+      }
+      }
+    },
     state: DataTypes.STRING,
-    title: DataTypes.STRING
+    title: {
+      type: DataTypes.STRING,
+      validate:{len: {
+        args:[6,50],
+        msg: "El titulo tiene que tener entre 6 y 50 caracteres"
+      }}
+    }
   }, {
     sequelize,
     modelName: 'academicActivity',
     timestamps: false
   });
-
-  
   return academicActivity;
 };

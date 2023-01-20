@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       studentSkills.belongsTo(models.professionalProfile)
+      studentSkills.belongsTo(models.skill)
     }
   }
   studentSkills.init({

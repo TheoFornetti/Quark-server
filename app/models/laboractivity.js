@@ -14,12 +14,46 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   laborActivity.init({
-    company: DataTypes.STRING,
-    description: DataTypes.STRING,
-    beginDate: DataTypes.DATE,
-    endDate: DataTypes.DATE,
+    company: {
+      type: DataTypes.STRING,
+      allowNull: false,
+      validate:{len: {
+        args:[2,50],
+        msg: "El nombre de la compañia tiene que tener entre 6 y 50 caracteres"
+      }}
+    },
+    description: {
+      type: DataTypes.STRING,
+      validate:{len: {
+        args:[0,100],
+        msg: "La descripcion no puede tener mas de 100 caracteres"
+      }}
+    },
+    beginDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+    },
+    endDate: {
+      type: DataTypes.DATE,
+      allowNull: true,
+      validate:{
+        dateValidator() {
+          var fechaInicial = new Date(this.beginDate)
+          var fechaFinal = new Date(this.endDate) 
+        if (fechaInicial>fechaFinal) {
+          throw new Error("La fecha de inicion no puede ser mayor que la fecha de fin");
+        }
+      }
+      }
+    },
     state: DataTypes.STRING,
-    title: DataTypes.STRING
+    title: {
+      type: DataTypes.STRING,
+      validate:{len: {
+        args:[6,50],
+        msg: "El titulo tiene que tener entre 6 y 50 caracteres"
+      }}
+    }
   }, {
     sequelize,
     modelName: 'laborActivity',

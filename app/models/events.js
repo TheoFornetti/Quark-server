@@ -15,10 +15,19 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   events.init({
-    title: DataTypes.STRING,
+    title: {
+      type: DataTypes.STRING,
+      allowNull: false
+    },
     description: DataTypes.STRING,
-    eventDate: DataTypes.DATE,
-    link: DataTypes.STRING,
+    eventDate: {
+      type:DataTypes.DATE,
+      allowNull: false
+    },
+    link: {
+      type:DataTypes.STRING,
+      allowNull: false
+    },
     state: {
       type: DataTypes.INTEGER,
       defaultValue: 0
@@ -26,11 +35,15 @@ module.exports = (sequelize, DataTypes) => {
     visibility: {
       type: DataTypes.INTEGER,
       defaultValue: 0
+    },
+    isSaved:{
+      type: DataTypes.BOOLEAN,
+      defaultValue: 0
     }
   }, {
     sequelize,
     modelName: 'events',
-    timestamps: false
+    timestamps: true
   });
   return events;
 };

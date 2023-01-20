@@ -1,5 +1,5 @@
 const { where } = require("sequelize")
-const {sesskey} = require("../../models/index")
+const {sesskey, professionalProfile} = require("../../models/index")
 const { createUser } = require("./professionalProfileService")
 
 async function getSessionKey(professionalProfileId){
@@ -7,15 +7,17 @@ async function getSessionKey(professionalProfileId){
     return rta
 }
 async function createReadUpdate(professionalProfileId, sessKey){
+                                             
     var rta = await sesskey.findAll({ attributes: ['sesskey'],
         where: {
             professionalProfileId
         }
     })
+
+
     
     if(rta.length == 0){
-        //Create user and sesskey
-        await createUser(professionalProfileId)
+        
         await sesskey.create({
             sesskey: sessKey,
             professionalProfileId
@@ -24,6 +26,7 @@ async function createReadUpdate(professionalProfileId, sessKey){
         var rta = await sesskey.findAll({ attributes: ['sesskey'],
         where: {
             professionalProfileId
+
         }}
         )
         return rta[0]

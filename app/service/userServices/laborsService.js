@@ -1,24 +1,25 @@
 const {laborActivity} = require("../../models/index")
 
 async function getLabors(professionalProfileId){
-    var rta = await laborActivity.findAll({where:{professionalProfileId}})
+    var rta = laborActivity.findAll({where:{professionalProfileId}})
     return rta
 }
 
 async function createLabors(professionalProfileId, labors){
-    var rta = await laborActivity.create({
+    var rta = laborActivity.create({
         company: labors.company,
         beginDate: labors.beginDate,
         endDate: labors.endDate,
         state: labors.state,
         title: labors.title,
+        description: labors.description,
         professionalProfileId
     })
     return rta
 }
 
 async function updateLabors(id,labors){
-    var rta = await laborActivity.update({
+    var rta = laborActivity.update({
         company: labors.company,
         beginDate: labors.beginDate,
         endDate: labors.endDate,
@@ -29,7 +30,7 @@ async function updateLabors(id,labors){
 }
 
 async function deleteLabors(id){
-    var rta = await laborActivity.destroy({where: {id}})
+    var rta = laborActivity.destroy({where: {id}})
     return rta
 }
 

@@ -8,7 +8,7 @@ async function agregarInsignias(user){
 
     let response = await fetch(core_badges_get_user_badges)
     let data = await response.json()
-    console.log(data)
+    // console.log(data)
 
     data.badges.forEach(badges => {
         let url = badges.badgeurl;

@@ -14,11 +14,38 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   independentActivity.init({
-    beginDate: DataTypes.DATE,
-    description: DataTypes.STRING,
-    endDate: DataTypes.DATE,
+    beginDate:  {
+      type: DataTypes.DATE,
+      allowNull: false,
+    },
+    description: {
+      type: DataTypes.STRING,
+      validate:{len: {
+        args:[0,100],
+        msg: "La descripcion no puede tener mas de 100 caracteres"
+      }}
+    },
+    endDate:  {
+      type: DataTypes.DATE,
+      allowNull: true,
+      validate:{
+        dateValidator() {
+          var fechaInicial = new Date(this.beginDate)
+          var fechaFinal = new Date(this.endDate) 
+        if (fechaInicial>fechaFinal) {
+          throw new Error("La fecha de inicion no puede ser mayor que la fecha de fin");
+        }
+      }
+      }
+    },
     state: DataTypes.STRING,
-    title: DataTypes.STRING
+    title: {
+      type: DataTypes.STRING,
+      validate:{len: {
+        args:[3,50],
+        msg: "El titulo tiene que tener entre 6 y 50 caracteres"
+      }}
+    }
   }, {
     sequelize,
     modelName: 'independentActivity',

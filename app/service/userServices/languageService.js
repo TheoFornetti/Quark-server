@@ -1,12 +1,16 @@
-const {studentLanguage} = require("../../models/index")
+const {studentLanguage, language} = require("../../models/index")
 
 async function getLanguage(professionalProfileId){
-    var rta = await studentLanguage.findAll({where:{professionalProfileId}}) 
+    var options= {
+        where: {professionalProfileId},
+        include:[language]
+    }
+    var rta = studentLanguage.findAll(options) 
     return rta
 }
 
 async function createLanguage(professionalProfileId, language){
-    var rta = await studentLanguage.create({
+    var rta = studentLanguage.create({
         level: language.level,
         languageId: language.id,
         professionalProfileId
@@ -16,7 +20,7 @@ async function createLanguage(professionalProfileId, language){
 }
 
 async function updateLanguage(id, language){
-    var rta = await studentLanguage.update({
+    var rta = studentLanguage.update({
         level: language.level,
         languageId: language.id,
     },{where:{id}})
@@ -25,7 +29,7 @@ async function updateLanguage(id, language){
 }
 
 async function deleteLanguage(id){
-    var rta = await studentLanguage.destroy({
+    var rta = studentLanguage.destroy({
         where: {id}
     })
 

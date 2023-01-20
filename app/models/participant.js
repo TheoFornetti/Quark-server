@@ -14,13 +14,13 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   participant.init({
-    inscriptionDate: DataTypes.DATE,
+    
     state: DataTypes.STRING,
     observation: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'participant',
-    timestamps: false
+    timestamps: true
   });
   return participant;
 };

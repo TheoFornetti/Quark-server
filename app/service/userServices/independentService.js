@@ -1,15 +1,16 @@
 const {independentActivity} = require("../../models/index")
 
 async function getIndependent(professionalProfileId){
-    var rta = await independentActivity.findAll({where: {professionalProfileId}})
+    var rta = independentActivity.findAll({where: {professionalProfileId}})
     return rta
 }
 
 async function createIndependent(professionalProfileId, independent){
-    var rta = await independentActivity.create({
+    var rta = independentActivity.create({
         beginDate: independent.beginDate,
         endDate: independent.endDate,
         state: independent.state,
+        description: independent.description,
         title: independent.title,
         professionalProfileId
     })
@@ -17,7 +18,7 @@ async function createIndependent(professionalProfileId, independent){
 }
 
 async function updateIndependent(id,independent){
-    var rta = await independentActivity.update({
+    var rta =  independentActivity.update({
        
         beginDate: independent.beginDate,
         endDate: independent.endDate,
@@ -28,7 +29,7 @@ async function updateIndependent(id,independent){
 }
 
 async function deleteIndependent(id){
-    var rta = await independentActivity.destroy({where: {id}})
+    var rta = independentActivity.destroy({where: {id}})
     return rta
 }
 

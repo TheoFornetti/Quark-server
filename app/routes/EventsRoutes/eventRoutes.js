@@ -3,10 +3,13 @@ const eventController = require("../../controller/EventsController/eventControll
 
 const eventsRoutes = Router()
 
-eventsRoutes.get("/futureEvents", eventController.FutureEvents)
-eventsRoutes.get("/pastEvents", eventController.pastEvents)
+eventsRoutes.post("/futureEvents", eventController.FutureEvents)
+eventsRoutes.post("/getAllEvents", eventController.getAll)
+eventsRoutes.post("/pastEvents", eventController.pastEvents)
 eventsRoutes.post("/create", eventController.create)
+eventsRoutes.post("/filter", eventController.filterEvents)
 eventsRoutes.put("/update", eventController.update)
 eventsRoutes.delete("/delete/:id", eventController.delete)
+eventsRoutes.get("/closestEvent", eventController.closestEvents)
 
 module.exports = eventsRoutes

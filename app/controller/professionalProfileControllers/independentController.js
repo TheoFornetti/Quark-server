@@ -1,42 +1,50 @@
-const { createIndependent, updateIndependent, deleteIndependent, getIndependent } = require("../../service/userServices/independentService")
+const {
+  createIndependent,
+  updateIndependent,
+  deleteIndependent,
+  getIndependent,
+} = require("../../service/userServices/independentService");
 
 var independentController = {
-    read: async(req,res)=>{
-        try{
-            var rta = await getIndependent(req.params.id)
-            res.send(rta)
-        }catch(err){
-            console.log(err)
-            res.sendStatus(500)
-        }
-    },
+  read: async (req, res) => {
+    getIndependent(req.params.id)
+      .then((independent) => {
+        res.status(200).send(independent);
+      })
+      .catch((err) => {
+        res.status(400).json({ msg: err.message });
+      });
+  },
 
-    create: async (req,res)=>{
-       try{
-        var rta = await createIndependent(req.body.userid, req.body.independents)
-        res.send(rta)
-       }catch(err){
-        res.sendStatus(500)
-       }
-    },
+  create: async (req, res) => {
+    createIndependent(req.body.userid, req.body.independents)
+      .then((independent) => {
+        res.status(200).json({ independent, msg: "Se creo con exito!" });
+      })
+      .catch((err) => {
+        res.status(400).json({ msg: err.message });
+      });
+  },
 
-    update: async (req,res)=>{
-        try{
-            var rta = await updateIndependent(req.body.id, req.body.independents)
-            res.send(rta)
-        }catch(err){
-            res.sendStatus(500)
-        }
-    },
+  update: async (req, res) => {
+    var rta = updateIndependent(req.body.id, req.body.independents)
+      .then(() => {
+        res.status(200).json({ msg: "Se actualizo con exito!" });
+      })
+      .catch((err) => {
+        res.status(400).json({ msg: err.message });
+      });
+  },
 
-    delete: async(req,res)=>{
-        try{
-            var rta = await deleteIndependent(req.params.id)
-            res.sendStatus(200)
-        }catch{
-            res.sendStatus(500)
-        }
-    }
-}
+  delete: async (req, res) => {
+    var rta = deleteIndependent(req.params.id)
+      .then(() => {
+        res.status(200).json({ msg: "Se elimino con exito!" });
+      })
+      .catch((err) => {
+        res.status(400).json({ msg: err.message });
+      });
+  },
+};
 
-module.exports = independentController
+module.exports = independentController;

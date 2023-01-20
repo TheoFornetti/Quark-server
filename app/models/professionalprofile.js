@@ -12,19 +12,17 @@ module.exports = (sequelize, DataTypes) => {
       professionalProfile.hasMany(models.studentLanguage)
       professionalProfile.hasMany(models.participant)
       professionalProfile.hasOne(models.sesskey)
+      professionalProfile.hasOne(models.userBasicData)
+      
     }
   }
   professionalProfile.init({
-    
-    biography: DataTypes.STRING,
-    score: DataTypes.INTEGER,
-    nickname: DataTypes.STRING,
-    birthdate: DataTypes.DATE,
-    role:{
+    career: DataTypes.INTEGER,
+    role: {
       type:DataTypes.INTEGER,
       defaultValue:0
     },
-    career: DataTypes.INTEGER
+   
   }, {
     sequelize,
     modelName: 'professionalProfile',

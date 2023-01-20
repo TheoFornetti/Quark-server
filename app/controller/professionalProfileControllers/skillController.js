@@ -13,7 +13,7 @@ var skillController = {
     create: async (req,res)=>{
         try{
             var rta = await createSkill(req.body.userid, req.body.skills)
-            res.send(rta)
+            res.send(rta.studentSkills)
         }catch(err){
             res.sendStatus(500)
             console.log(err)
@@ -30,8 +30,8 @@ var skillController = {
     },
     delete: async (req,res)=>{
         try{
-            await deleteSkill(req.params.id)
-            res.sendStatus(200)
+            var rta1 = await deleteSkill(req.params.id)
+            res.send(rta1)
         }catch(err){
             console.log(err)
             res.sendStatus(500)

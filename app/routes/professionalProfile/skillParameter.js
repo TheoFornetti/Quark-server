@@ -3,7 +3,7 @@ const ParameterController = require("../../controller/professionalProfileControl
 var ParametersRoutes = Router()
 
 
-ParametersRoutes.get("/skills", ParameterController.readSkill)
+ParametersRoutes.get("/skills/:userCareer", ParameterController.readSkill)
 ParametersRoutes.get("/languages", ParameterController.readLanguages)
 
 

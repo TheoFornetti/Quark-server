@@ -10,13 +10,22 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      news.hasMany(models.courseNews);
+      news.hasMany(models.courseNews, {onDelete:"CASCADE"});
     }
   }
   news.init({
-    title: DataTypes.STRING,
-    content: DataTypes.STRING,
-    endDate: DataTypes.DATE
+    title: {
+      type:DataTypes.STRING,
+      allowNull: false
+    },
+    content: {
+      type:DataTypes.STRING,
+      allowNull: false
+    },
+    endDate: {
+      type:DataTypes.DATE,
+      allowNull: false
+    }
   }, {
     sequelize,
     modelName: 'news',

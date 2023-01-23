@@ -8,7 +8,6 @@ const { getLabors } = require("./laborsService");
 const { getLanguage } = require("./languageService");
 const {  getSkill } = require("./skillService");
 
-
 async function getUserFullInfo(id){
     var options = {
        
@@ -107,6 +106,8 @@ async function updateUser(professionalProfileId, generalData){
     
    
 }
+
+
 
 
 

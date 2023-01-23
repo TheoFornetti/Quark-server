@@ -47,7 +47,7 @@ app.use("/studentEvents", studentEventRoutes)
 app.use("/news", newsRoutes)
 app.use("/tags", tagRoutes)
 app.use("/userImg", userImg)
-app.use("/registro", registerRoutes)
+app.use("/register", registerRoutes)
 
 
 app.listen(Port, (req,res)=>{

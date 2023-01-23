@@ -16,7 +16,8 @@ const eventsRoutes = require("./routes/EventsRoutes/eventRoutes");
 const studentEventRoutes = require("./routes/EventsRoutes/studentEventRoutes");
 const newsRoutes = require("./routes/newsRoutes/newsRoutes");
 const tagRoutes = require("./routes/EventsRoutes/tagsRoutes");
-const userImg = require("./routes/imgRoutes/userImgRoutes")
+const userImg = require("./routes/imgRoutes/userImgRoutes");
+const registerRoutes = require("./routes/Register/registerRoutes");
 
 
 const Port = process.env.PORT || 8080
@@ -46,6 +47,7 @@ app.use("/studentEvents", studentEventRoutes)
 app.use("/news", newsRoutes)
 app.use("/tags", tagRoutes)
 app.use("/userImg", userImg)
+app.use("/registro", registerRoutes)
 
 
 app.listen(Port, (req,res)=>{

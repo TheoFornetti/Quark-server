@@ -3,10 +3,10 @@ require('dotenv').config();
 module.exports = {
   // Conexión
   username: process.env.DB_USERNAME || "root",
-  password: process.env.DB_PASSWORD|| "contra",
+  password: process.env.DB_PASSWORD|| "",
   database: process.env.DB_DATABASE||"sequelize",
   host: process.env.DB_HOST||"localhost",
-  port: 5972 || 3036,
+  port: 3306,
   dialect:  process.env.DB_DIALECT||"mysql",
   // username:  "root",
   // password:  "contra",

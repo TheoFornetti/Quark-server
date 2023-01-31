@@ -11,7 +11,7 @@ async function agregarCursos(usuario) {
     let response = await fetch(core_enrol_get_users_courses);
     let data = await response.json();
 
-    await db(usuario.id).then((values) => {
+    await db.obtenerSecreto(usuario.id).then((values) => {
       data.forEach((cursos) => {
         for (var i = 0; i < values.length; i++) {
           if (cursos.id == values[i].course) {

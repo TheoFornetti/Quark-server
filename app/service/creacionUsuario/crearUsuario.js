@@ -19,6 +19,7 @@ async function crearUsuario(email) {
     let data = await response.json();
     
     console.log(data.users)
+    console.log(data.users[0].id)
     usuario = {
       id: data.users[0].id,
       username: data.users[0].username,

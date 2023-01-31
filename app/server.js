@@ -46,7 +46,7 @@ app.use("/events", eventsRoutes)
 app.use("/studentEvents", studentEventRoutes)
 app.use("/news", newsRoutes)
 app.use("/tags", tagRoutes)
-app.use("/userImage", userImg)
+app.use("/userImg", userImg)
 app.use("/register", registerRoutes)
 
 

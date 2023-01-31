@@ -38,6 +38,8 @@ function obtenerInfo (userid){
 }
 
 
+
+
 async function ObtenerData(userid){
     try {
         const data = await obtenerInfo(userid); // almacenamos el resultado por si queremos trabajar con el mismo
@@ -46,6 +48,7 @@ async function ObtenerData(userid){
         console.log(err);
     }
 }
+
 
 module.exports = ObtenerData
 

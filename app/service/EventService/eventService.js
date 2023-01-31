@@ -16,7 +16,7 @@ async function createEvent(event) {
       isSaved: +event.isSaved,
     });
 
-    if (event.eventTags?.length != 0) {
+    if (event.eventTags.length != 0) {
       event.eventTags.forEach(async (tag) => {
         console.log(tag);
         await eventTags.create({
@@ -68,7 +68,7 @@ async function updateEvent(id, event) {
 
     await eventTags.destroy({ where: { eventId: id } });
 
-    if (event.eventTags?.length != 0 ) {
+    if (event.eventTags.length != 0 ) {
       event.eventTags.forEach(async (tag) => {
         console.log(tag);
         await eventTags.create({

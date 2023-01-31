@@ -2,11 +2,11 @@ const { Storage } = require("@google-cloud/storage");
 const { userBasicData } = require("../../models/index");
 
 const storage = new Storage({
-  projectId: "api-perfil",
-  keyFilename: "api-perfil-97e04108a2a0.json",
+  projectId: "servidor-prueba-plataforma",
+  keyFilename: "servidor-prueba-plataforma-a3e26aa882ab.json",
 });
 
-const bucket = storage.bucket("quark-platform-img-bucket");
+const bucket = storage.bucket("quark-platform-vm-img-bucket");
 
 const handleUpload = (req, file, cb) => {
   const fileExtension = file.originalname.split(".")[1];
@@ -24,11 +24,12 @@ const handleUpload = (req, file, cb) => {
   });
 
   stream.on("finish", () => {
+    console.log("Uploading")
     let professionalProfileId = req.body.userid;
     userBasicData
       .update(
         {
-          imgUrl: `https://storage.googleapis.com/quark-platform-img-bucket/${newFile.id}`,
+          imgUrl: `https://storage.googleapis.com/quark-platform-vm-img-bucket/${newFile.id}`,
         },
         { where: { professionalProfileId } }
       )
@@ -47,18 +48,18 @@ var userImgController = {
   uploadImg: async (req, res) => {
     var professionalProfileId = req.body.userid;
     var url = await userBasicData.findAll({ where: { professionalProfileId } });
-
+   
     if (
       url[0].imgUrl.includes(
-        "https://storage.googleapis.com/quark-platform-img-bucket/blank-profile-picture-973460_1280.webp"
+        "https://storage.googleapis.com/quark-platform-vm-img-bucket/blank-profile-picture.webp"
       )
     ) {
       console.log("Se Actualiza");
       handleUpload(req, req.file, (err, data) => {
         if (err) {
           console.log(err.message);
-          res.status(500).send({ error: "Error uploading image" });
-        } else {
+          res.status(500).send({ error: "Error uploading image"  });
+        }else {
           userBasicData
             .findAll({ where: { professionalProfileId } })
             .then((url) => res.status(200).send(url[0].imgUrl));

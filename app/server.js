@@ -20,11 +20,11 @@ const userImg = require("./routes/imgRoutes/userImgRoutes");
 const registerRoutes = require("./routes/Register/registerRoutes");
 
 
-const Port = process.env.PORT || 8080
+const Port = process.env.PORT || 3030
 
 const app = express();
 app.use(cors({
-    origin: ["http://localhost:3000"],
+    origin: ["http://34.71.113.200:3000"],
     methods:["GET","POST","PUT","DELETE","UPDATE"],
     credentials: true
 }))
@@ -46,9 +46,13 @@ app.use("/events", eventsRoutes)
 app.use("/studentEvents", studentEventRoutes)
 app.use("/news", newsRoutes)
 app.use("/tags", tagRoutes)
-app.use("/userImg", userImg)
+app.use("/userImage", userImg)
 app.use("/register", registerRoutes)
 
+
+app.get("/",(req,res)=>{
+    res.send("Funciona!")
+})
 
 app.listen(Port, (req,res)=>{
     sequelize.sync({force:false}).then(()=>{

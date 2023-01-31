@@ -8,19 +8,17 @@ async function crearUsuario(email) {
   let listaGameJams = []
   let curso = {};
 
-  if (typeof(email) == "number") {
-    var core_user_get_user = `https://quark.academy/webservice/rest/server.php?wstoken=11e282e69970c31ed54f38925921b88f&wsfunction=core_user_get_users&criteria[0][key]=id&criteria[0][value]=${email}&moodlewsrestformat=json`;
-  } else if (email.includes("@")) {
-    var core_user_get_user = `https://quark.academy/webservice/rest/server.php?wstoken=11e282e69970c31ed54f38925921b88f&wsfunction=core_user_get_users&criteria[0][key]=email&criteria[0][value]=${email}&moodlewsrestformat=json`;
+  if (email.includes("@")) {
+    var core_user_get_user = `http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_user_get_users&criteria[0][key]=email&criteria[0][value]=${email}&moodlewsrestformat=json`;
   } else {
-    var core_user_get_user = `https://quark.academy/webservice/rest/server.php?wstoken=11e282e69970c31ed54f38925921b88f&wsfunction=core_user_get_users&criteria[0][key]=username&criteria[0][value]=${email}&moodlewsrestformat=json`;
+    var core_user_get_user = `http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_user_get_users&criteria[0][key]=username&criteria[0][value]=${email}&moodlewsrestformat=json`;
   }
 
   try {
     let response = await fetch(core_user_get_user);
     let data = await response.json();
     
-
+    console.log(data.users)
     usuario = {
       id: data.users[0].id,
       username: data.users[0].username,
@@ -34,6 +32,7 @@ async function crearUsuario(email) {
       listaCurso,
       listaGameJams
     };
+    console.log(usuario)
     
     return usuario;
   } catch (err) {

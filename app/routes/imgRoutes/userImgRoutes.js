@@ -9,7 +9,8 @@ const upload = multer({
 });
 const userImgRouter = Router()
 
-userImgRouter.post("/upload", upload.single('file'), userImgController.uploadImg)
+userImgRouter.post("/", upload.single('file'), userImgController.uploadImg)
+
 
 
 module.exports = userImgRouter

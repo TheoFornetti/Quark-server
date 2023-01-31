@@ -77,7 +77,7 @@ async function createUser(professionalProfileId, userGeneralData){
             biography:userGeneralData.biography,
             nickname:userGeneralData.nickname,
             birthday:userGeneralData.birthdate,
-            imgUrl: "https://storage.googleapis.com/quark-platform-img-bucket/blank-profile-picture-973460_1280.webp"
+            imgUrl: "https://storage.googleapis.com/quark-platform-vm-img-bucket/blank-profile-picture.webp"
         });
         return rta
     }catch(err){

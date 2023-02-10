@@ -55,12 +55,16 @@ var userController = {
     var email = req.params.email;
     if (email != "favicon") {
       devolverUsuario(email).then(async (usuario) => {
+       
         console.log("paso 1");
         await devolverUsuarioCurso(usuario).then(async (usuarioCursos) => {
+          
           console.log("paso 2");
           await mostrarImg(usuarioCursos).then(async (usuarioCursosImg) => {
+            
             console.log("Paso 3");
             await retornarInsignia(usuarioCursosImg).then(async (moodleUserData) => {
+              
               var professionalProfileId = moodleUserData.id
               var rta = await professionalProfile.findAll({where:{id:professionalProfileId}})
 
@@ -80,7 +84,7 @@ var userController = {
               
               
               careerSelector(moodleUserData.listaCurso, moodleUserData.id);
-
+              
               var moodleData = {moodleUserData}
              
               res.send(moodleData);

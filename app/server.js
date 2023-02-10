@@ -18,6 +18,8 @@ const newsRoutes = require("./routes/newsRoutes/newsRoutes");
 const tagRoutes = require("./routes/EventsRoutes/tagsRoutes");
 const userImg = require("./routes/imgRoutes/userImgRoutes");
 const registerRoutes = require("./routes/Register/registerRoutes");
+const scholarshipRoutes = require("./routes/ scholarshipRoutes/ scholarshipRoutes");
+const challengeRouter = require("./routes/challngeRoutes/challengeRoutes");
 
 
 const Port = process.env.PORT || 3030
@@ -48,6 +50,8 @@ app.use("/news", newsRoutes)
 app.use("/tags", tagRoutes)
 app.use("/userImg", userImg)
 app.use("/register", registerRoutes)
+app.use("/scholarship", scholarshipRoutes)
+app.use("/challenge", challengeRouter)
 
 
 app.get("/",(req,res)=>{
@@ -55,7 +59,7 @@ app.get("/",(req,res)=>{
 })
 
 app.listen(Port, (req,res)=>{
-    sequelize.sync({force:false}).then(()=>{
+    sequelize.sync({alter:false}).then(()=>{
         console.log("Connection has been stablish")
     }).catch(err=>{
         console.log(err)

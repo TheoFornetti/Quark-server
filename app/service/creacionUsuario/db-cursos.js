@@ -7,10 +7,14 @@ app.use(express.json())
 let conexion
 
  conexion = mysql.createConnection({
-    host: "34.135.139.113",
-    user:'webServicesReadOnly',
-    password:'Redcouch.2020',
-    database:'bitnami_moodle'
+    // host: "34.135.139.113",
+    // user:'webServicesReadOnly',
+    // password:'Redcouch.2020',
+    // database:'bitnami_moodle'
+    host: "localhost",
+    user:'root',
+    password:'R#fT7gH9',
+    database:'moodle'
 })
 
 const funciona = () => {
@@ -49,6 +53,7 @@ async function ObtenerData(userid){
     }
 }
 
+funciona()
 
 module.exports = ObtenerData
 

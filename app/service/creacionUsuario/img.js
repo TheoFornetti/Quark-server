@@ -4,7 +4,7 @@ let data = [];
 async function obtenerImg(){
     let listaImagenes = [];
     var lista = [];
-  const core_course_get_courses_by_field = `https://quark.academy/webservice/rest/server.php?wstoken=4fc7cc36ba637f32cbec282ea5352ba7&wsfunction=core_course_get_courses_by_field&moodlewsrestformat=json`;
+  const core_course_get_courses_by_field = `http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_course_get_courses_by_field&moodlewsrestformat=json`;
 
   try{
     let response = await fetch(core_course_get_courses_by_field)
@@ -36,7 +36,7 @@ async function mostrarImg(usuarioCursos){
   usuarioCursos.listaCurso.forEach(curso => {
     
     let url = data.find(element => element.id == curso.idCurso)
-    curso.url = url.url
+    curso.url = url.url 
   })
 
   if(usuarioCursos.listaGameJams.length > 0){

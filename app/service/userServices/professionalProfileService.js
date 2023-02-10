@@ -1,6 +1,6 @@
 const { Model } = require("sequelize");
 const {userBasicData, professionalProfile,academicActivity,laborActivity,studentLanguage, independentActivity,studentSkills,language} = require("../../models/index");
-
+const fetch = require("node-fetch")
 const { options } = require("../../routes/login");
 const { getAcademics } = require("./academicService");
 const { getIndependent } = require("./independentService");
@@ -86,9 +86,12 @@ async function createUser(professionalProfileId, userGeneralData){
 }
 
 async function updateUser(professionalProfileId, generalData){
+    console.log(generalData)
+    console.log(professionalProfileId)
     
-    // var response = await fetch("http://localhost/moodle/webservice/rest/server.php?wstoken=682a2163a234ce9d0df794c359df06e3&wsfunction=core_user_update_users&moodlewsrestformat=json&users[0][id]=8&users[0][email]=mocoDeMono1997@gmail.com")
+    var response = await fetch(`http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_user_update_users&moodlewsrestformat=json&users[0][id]=${professionalProfileId}&users[0][phone2]=${generalData.phone}&users[0][city]=${generalData.city}&users[0][country]=${generalData.country}&users[0][firstname]=${generalData.firstname}&users[0][lastname]=${generalData.lastname}`)
    
+    console.log(response)
 
     var rta = userBasicData.update({
         biography: generalData.biography,

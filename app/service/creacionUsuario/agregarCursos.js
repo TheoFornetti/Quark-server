@@ -5,48 +5,64 @@ async function agregarCursos(usuario) {
   let usuarioCurso;
   let curso;
   
-  const core_enrol_get_users_courses = `https://quark.academy/webservice/rest/server.php?wstoken=11e282e69970c31ed54f38925921b88f&wsfunction=core_enrol_get_users_courses&userid=${usuario.id}&moodlewsrestformat=json`;
+  const core_enrol_get_users_courses = `http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&&wsfunction=core_enrol_get_users_courses&userid=${usuario.id}&moodlewsrestformat=json`;
 
   try {
     let response = await fetch(core_enrol_get_users_courses);
     let data = await response.json();
+    data.forEach((cursos) => {
+      var date = new Date(
+                  cursos.lastaccess * 1000
+                ).toLocaleDateString()
+      curso = {
+        fullName: cursos.fullname,
+        lastaccess: date,
+        idCurso: cursos.id,
+        progress: cursos.progress,
+        url: "",
+        
+      };
+      usuario.listaCurso.push(curso);
+    })
+    
 
-    await db(usuario.id).then((values) => {
-      data.forEach((cursos) => {
-        for (var i = 0; i < values.length; i++) {
-          if (cursos.id == values[i].course) {
-            var date = new Date(
-              values[i].timeenrolled * 1000
-            ).toLocaleDateString();
+    // await db(usuario.id).then((values) => {
+    //   console.log(values)
+    //   data.forEach((cursos) => {
+    //     for (var i = 0; i < values.length; i++) {
+    //       if (cursos.id == values[i].course) {
+    //         var date = new Date(
+    //           values[i].timeenrolled * 1000
+    //         ).toLocaleDateString();
 
-            if(cursos.fullname.match("Quark Game Jam")){
-              curso = {
-                fullName: cursos.fullname,
-                lastaccess: cursos.lastaccess,
-                idCurso: cursos.id,
-                progress: cursos.progress,
-                timestarted: date,
-                url: "",
+    //         if(cursos.fullname.match("Quark Game Jam")){
+    //           curso = {
+    //             fullName: cursos.fullname,
+    //             lastaccess: cursos.lastaccess,
+    //             idCurso: cursos.id,
+    //             progress: cursos.progress,
+    //             timestarted: date,
+    //             url: "",
                 
-              };
-              usuario.listaGameJams.push(curso);
-            }else{
-              curso = {
-                fullName: cursos.fullname,
-                lastaccess: cursos.lastaccess,
-                idCurso: cursos.id,
-                progress: cursos.progress,
-                timestarted: date,
-                url: "",
+    //           };
+    //           usuario.listaGameJams.push(curso);
+    //         }else{
+    //           curso = {
+    //             fullName: cursos.fullname,
+    //             lastaccess: cursos.lastaccess,
+    //             idCurso: cursos.id,
+    //             progress: cursos.progress,
+    //             timestarted: date,
+    //             url: "",
                 
-              };
-              usuario.listaCurso.push(curso);
-            }
-          }
-        }
-      });
+    //           };
+    //           usuario.listaCurso.push(curso);
+    //         }
+    //       }
+    //     }
+    //   });
       usuarioCurso = usuario;
-    });
+    // });
     return usuarioCurso;
   } catch (err) {
     console.log(err);

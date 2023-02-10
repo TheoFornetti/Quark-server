@@ -2,12 +2,13 @@ const jwt = require("jsonwebtoken")
 
 function verifyToken(req, res, next) {
     try {
-      const token = req.headers.authorization;
-      const decoded = jwt.verify(token, "secretkey");
+      const cookie = req.headers.quarksession;
+      console.log(cookie)
+      const decoded = jwt.verify(cookie, "secretkey");
       console.log(decoded)
       next();
     } catch (ex) {
-      res.send(401);
+      res.sendStatus(401);
     }
 }
 

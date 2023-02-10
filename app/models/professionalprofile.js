@@ -13,6 +13,7 @@ module.exports = (sequelize, DataTypes) => {
       professionalProfile.hasMany(models.participant)
       professionalProfile.hasOne(models.sesskey)
       professionalProfile.hasOne(models.userBasicData)
+      professionalProfile.hasMany(models.scholarship)
       
     }
   }

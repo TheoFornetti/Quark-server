@@ -43,6 +43,10 @@ async function obtenerSecreto(username) {
 }
 
 async function Exist(user) {
+
+  var email = user.email
+  var username = user.username
+
   var url =
     "http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_user_get_users&criteria[0][key]=confirm&criteria[0][value]=true&moodlewsrestformat=json";
 
@@ -62,6 +66,19 @@ async function Exist(user) {
   if (found1 != -1) {
     throw new Error("Este email ya esta en uso!");
   }
+
+  var rta = await temporal.findAll({where: {username}})
+
+  if(rta.length != 0){
+    throw new Error("El username ya existe!");
+  }
+
+  var rta1 = await temporal.findAll({where: {email}})
+
+  if(rta1.length != 0){
+    throw new Error("Este email ya esta en uso!");
+  }
+
 }
 
 async function createTemporal(user) {
@@ -83,11 +100,14 @@ async function getTemporal(id) {
 
 async function createMoodleUser(user) {
   try {
+    console.log(user[0].email)
+    
     var url = `http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=auth_email_signup_user&username=${user[0].username}&password=${user[0].password}&firstname=${user[0].firstName}&lastname=${user[0].lastName}&email=${user[0].email}&moodlewsrestformat=json`;
 
     var response = await fetch(url);
     var data = await response.json();
-    console.log(data);
+    
+   
   } catch (err) {
     throw new Error("No se pudo crear el usuario!" + err.message);
   }
@@ -96,7 +116,7 @@ async function createMoodleUser(user) {
 async function confirmUser(user) {
   try {
     var moodleUser = await obtenerSecreto(user[0].username);
-    console.log(moodleUser[0].secret);
+    
     var url = `http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_auth_confirm_user&username=${user[0].username}&secret=${moodleUser[0].secret}&moodlewsrestformat=json`;
     var response = await fetch(url);
     var data = await response.json();

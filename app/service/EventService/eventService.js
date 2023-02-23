@@ -1,11 +1,19 @@
 const {
   FutureEvents,
 } = require("../../controller/EventsController/eventController");
-const { events, participant, eventTags, tag, sequelize } = require("../../models/index");
+const {
+  events,
+  participant,
+  eventTags,
+  tag,
+  sequelize,
+} = require("../../models/index");
 const { Op } = require("sequelize");
+const uploadGenaralImg = require("../../controller/imgController/generalImg");
 
-async function createEvent(event) {
+async function createEvent(event, img) {
   try {
+    const imgUrl = await uploadGenaralImg(img, "none");
     var rta = await events.create({
       title: event.title,
       description: event.description,
@@ -14,9 +22,10 @@ async function createEvent(event) {
       state: +event.state,
       visibility: +event.visibility,
       isSaved: +event.isSaved,
+      img: imgUrl,
     });
 
-    if (event.eventTags.length != 0) {
+    /*if (event.eventTags.length != 0) {
       event.eventTags.forEach(async (tag) => {
         console.log(tag);
         await eventTags.create({
@@ -24,8 +33,8 @@ async function createEvent(event) {
           tagId: +tag,
         });
       });
-    }
-    return rta
+    }*/
+    return rta;
   } catch (err) {
     return err;
   }
@@ -51,8 +60,10 @@ async function createEvenSuscription(professionalProfileId, event) {
   }
 }
 
-async function updateEvent(id, event) {
-  
+async function updateEvent(event, img) {
+  try {
+    const eventToUpdate = await events.findByPk(event.eventid);
+    const imgUrl = await uploadGenaralImg(img, eventToUpdate.img);
     await events.update(
       {
         title: event.title,
@@ -62,11 +73,15 @@ async function updateEvent(id, event) {
         state: event.state,
         visibility: event.visibility,
         isSaved: event.isSaved,
+        img: imgUrl
       },
-      { where: { id } }
+      { where: { id: event.eventid } }
     );
+  } catch (err) {
+    return err;
+  }
 
-    await eventTags.destroy({ where: { eventId: id } });
+  /*await eventTags.destroy({ where: { eventId: id } });
 
     if (event.eventTags.length != 0 ) {
       event.eventTags.forEach(async (tag) => {
@@ -76,8 +91,7 @@ async function updateEvent(id, event) {
           tagId: tag,
         });
       });
-    }
-  
+    }*/
 }
 
 async function deleteEvent(id) {
@@ -88,124 +102,111 @@ async function deleteEvent(id) {
   }
 }
 
-async function getClosestEvent(){
-  var actualDate = new Date()
+async function getClosestEvent() {
+  var actualDate = new Date();
   let options = {
     limit: 1,
     offset: 0 * 2,
-    where:{
-      eventDate:{
-        [Op.gte]: actualDate
+    where: {
+      eventDate: {
+        [Op.gte]: actualDate,
       },
-      visibility:{
-        [Op.eq]: 0
-      }
+      visibility: {
+        [Op.eq]: 0,
+      },
     },
-    order: sequelize.literal("eventDate ASC")
+    order: sequelize.literal("eventDate ASC"),
   };
 
-  var {count, rows} = await events.findAndCountAll(options);
-    
-  
-    var closestEventsObject = {
-      count,
-      
-    }
-  
-    return rows[0];
+  var { count, rows } = await events.findAndCountAll(options);
 
+  var closestEventsObject = {
+    count,
+  };
+
+  return rows[0];
 }
 
 async function getFutureEvents(page) {
- 
-    var actualDate = new Date()
-    let options = {
-      limit: 2,
-      offset: +page * 2,
-      where:{
-        eventDate:{
-          [Op.gte]: actualDate
-        },
-        visibility:{
-          [Op.eq]: 0
-        }
+  var actualDate = new Date();
+  let options = {
+    limit: 2,
+    offset: +page * 2,
+    where: {
+      eventDate: {
+        [Op.gte]: actualDate,
       },
-      order: sequelize.literal("eventDate ASC")
-    };
-    
-    var {count, rows} = await events.findAndCountAll(options);
-    
-  
-    var futureEventsObject = {
-      count,
-      rows
-    }
-  
-    return futureEventsObject;
-  
+      visibility: {
+        [Op.eq]: 0,
+      },
+    },
+    order: sequelize.literal("eventDate ASC"),
+  };
 
+  var { count, rows } = await events.findAndCountAll(options);
+
+  var futureEventsObject = {
+    count,
+    rows,
+  };
+
+  return futureEventsObject;
 }
 
 async function getPastEvents(page) {
   const actualDate = new Date();
-  
+
   let options = {
     limit: 6,
     offset: +page * 6,
-    where:{
-      eventDate:{
-        [Op.lt]: actualDate
+    where: {
+      eventDate: {
+        [Op.lt]: actualDate,
       },
-      visibility:{
-        [Op.eq]: 0
+      visibility: {
+        [Op.eq]: 0,
       },
-      isSaved:{
-        [Op.eq]: 1
-      }
-    }
+      isSaved: {
+        [Op.eq]: 1,
+      },
+    },
   };
- 
-  var {count, rows} = await events.findAndCountAll(options);
-  
+
+  var { count, rows } = await events.findAndCountAll(options);
+
   var pastEventsObject = {
-    count, 
-    rows
-  }
+    count,
+    rows,
+  };
 
   return pastEventsObject;
 }
 
 async function getAllEvents(size, page) {
- 
-  
-    
   let options = {
     limit: +size,
     offset: +page * +size,
-    include:[{model:eventTags,include:[tag]}],
-    order: sequelize.literal("updatedAt DESC")
+    include: [{ model: eventTags, include: [tag] }],
+    order: sequelize.literal("updatedAt DESC"),
   };
 
   const { count, rows } = await events.findAndCountAll(options);
 
   var page = {
-    
     count,
-    rows
-  }
+    rows,
+  };
 
   return page;
-  
-
 }
 
 async function filterEvents(tagsId, dates) {
-  try{
+  try {
     var eventList = [];
     var filteredEvents = [];
     var filteredDateEvents = [];
     var rta = await eventTags.findAll();
-  
+
     rta.forEach((event) => {
       tagsId.forEach((tagId) => {
         if (tagId == event.tagId) {
@@ -213,22 +214,22 @@ async function filterEvents(tagsId, dates) {
         }
       });
     });
-  
+
     let unicos = new Set(eventList);
     let arrayUnicos = [...unicos];
-  
+
     for (var i = 0; i < arrayUnicos.length; i++) {
       var event = await events.findByPk(arrayUnicos[i]);
       filteredEvents.push(event);
       console.log(i);
     }
-  
+
     if (dates != undefined) {
       filteredEvents.forEach((eventos) => {
         var eventDate = new Date(eventos.eventDate);
         var date1 = new Date(dates.firstDate);
         var date2 = new Date(dates.lastDate);
-  
+
         if (
           (eventDate >= date1 && eventDate < date2) ||
           (eventDate > date1 && eventDate <= date2)
@@ -240,8 +241,8 @@ async function filterEvents(tagsId, dates) {
     } else {
       return filteredEvents;
     }
-  }catch(err){
-    return err
+  } catch (err) {
+    return err;
   }
 }
 
@@ -253,5 +254,5 @@ module.exports = {
   getPastEvents,
   getAllEvents,
   filterEvents,
-  getClosestEvent
+  getClosestEvent,
 };

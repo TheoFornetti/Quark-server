@@ -46,6 +46,7 @@ const handleUpload = (req, file, cb) => {
 
 var userImgController = {
   uploadImg: async (req, res) => {
+    console.log(req)
     var professionalProfileId = req.body.userid;
     var url = await userBasicData.findAll({ where: { professionalProfileId } });
    

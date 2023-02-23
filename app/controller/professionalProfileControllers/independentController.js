@@ -17,6 +17,9 @@ var independentController = {
   },
 
   create: async (req, res) => {
+    if(req.body.independents.endDate == '') {
+      req.body.independents.endDate = undefined
+    }
     createIndependent(req.body.userid, req.body.independents)
       .then((independent) => {
         res.status(200).json({ independent, msg: "Se creo con exito!" });
@@ -27,6 +30,9 @@ var independentController = {
   },
 
   update: async (req, res) => {
+    if(req.body.independents.endDate == '') {
+      req.body.independents.endDate = undefined
+    }
     var rta = updateIndependent(req.body.id, req.body.independents)
       .then(() => {
         res.status(200).json({ msg: "Se actualizo con exito!" });

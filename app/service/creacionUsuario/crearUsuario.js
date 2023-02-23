@@ -19,7 +19,11 @@ async function crearUsuario(email) {
     let data = await response.json();
     
     console.log(data.users)
-    console.log(data.users[0].id)
+
+    if(data.users.length == 0){
+      throw new Error("No existe ese nombre de usuario")
+    }
+    
     usuario = {
       id: data.users[0].id,
       username: data.users[0].username,
@@ -29,6 +33,7 @@ async function crearUsuario(email) {
       country: data.users[0].country,
       city: data.users[0].city,
       phone: data.users[0].phone2,
+      idnumber: data.users[0].idnumber,
       badgesList,
       listaCurso,
       listaGameJams

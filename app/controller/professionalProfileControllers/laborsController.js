@@ -16,6 +16,9 @@ var laborController = {
       });
   },
   create: async (req, res) => {
+    if(req.body.labors.endDate == '') {
+      req.body.labors.endDate = undefined
+    }
     createLabors(req.body.userid, req.body.labors)
       .then((labors) => {
         res.status(200).json({ labors, msg: "Se creo con exito!" });
@@ -25,6 +28,9 @@ var laborController = {
       });
   },
   update: async (req, res) => {
+    if(req.body.labors.endDate == '') {
+      req.body.labors.endDate = undefined
+    }
     updateLabors(req.body.id, req.body.labors)
       .then(() => {
         res.status(200).json({ msg: "Se actualizo con exito!" });

@@ -39,7 +39,11 @@ module.exports = (sequelize, DataTypes) => {
     isSaved:{
       type: DataTypes.BOOLEAN,
       defaultValue: 0
-    }
+    },
+    img: {
+      type: DataTypes.STRING,
+      defaultValue: "none"
+    },
   }, {
     sequelize,
     modelName: 'events',

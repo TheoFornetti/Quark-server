@@ -53,46 +53,48 @@ var userController = {
   },
   getMoodleInfo: (req, res) => {
     var email = req.params.email;
-    if (email != "favicon") {
-      devolverUsuario(email).then(async (usuario) => {
-       
-        console.log("paso 1");
-        await devolverUsuarioCurso(usuario).then(async (usuarioCursos) => {
-          
-          console.log("paso 2");
-          await mostrarImg(usuarioCursos).then(async (usuarioCursosImg) => {
+    
+      if (email != "favicon") {
+        devolverUsuario(email).then(async (usuario) => {
+         
+          console.log("paso 1");
+          await devolverUsuarioCurso(usuario).then(async (usuarioCursos) => {
             
-            console.log("Paso 3");
-            await retornarInsignia(usuarioCursosImg).then(async (moodleUserData) => {
+            console.log("paso 2");
+            await mostrarImg(usuarioCursos).then(async (usuarioCursosImg) => {
               
-              var professionalProfileId = moodleUserData.id
-              var rta = await professionalProfile.findAll({where:{id:professionalProfileId}})
-
-              if(rta.length == 0){
-                var  nickName =  "user" + professionalProfileId
-                //Create user and sesskey
-                var rta = await professionalProfile.create({
-                    id: professionalProfileId,
-                });
-                //crear usuario
-                await createUser(
-                    professionalProfileId,
-                    {nickname:nickName}
-                )
-              }
-
-              
-              
-              careerSelector(moodleUserData.listaCurso, moodleUserData.id);
-              
-              var moodleData = {moodleUserData}
-             
-              res.send(moodleData);
-            });
-          });
-        });
-      });
-    }
+              console.log("Paso 3");
+              await retornarInsignia(usuarioCursosImg).then(async (moodleUserData) => {
+                
+                var professionalProfileId = moodleUserData.id
+                var rta = await professionalProfile.findAll({where:{id:professionalProfileId}})
+  
+                if(rta.length == 0){
+                  var  nickName =  "user" + professionalProfileId
+                  //Create user and sesskey
+                  var rta = await professionalProfile.create({
+                      id: professionalProfileId,
+                  });
+                  //crear usuario
+                  await createUser(
+                      professionalProfileId,
+                      {nickname:nickName}
+                  )
+                }
+  
+                
+                
+                careerSelector(moodleUserData.listaCurso, moodleUserData.id);
+                
+                var moodleData = {moodleUserData}
+               
+                res.send(moodleData);
+              }).catch(err => res.status(400).json({msg: err.message}));
+            }).catch(err => res.status(400).json({msg: err.message}));
+          }).catch(err => res.status(400).json({msg: err.message}));
+        }).catch(err => res.status(400).json({msg: err.message}));
+      }
+   
   },
   updateUserInfo : (req,res) =>{
     updateUser(req.body.userid, req.body.userGeneralData)

@@ -1,11 +1,12 @@
-const {Router} = require("express")
-const laborController = require("../../controller/professionalProfileControllers/laborsController")
-const auth = require("../../middlewares/auth")
-var laborsRoutes = Router()
+const { Router } = require("express");
+const laborController = require("../../controller/professionalProfileControllers/laborsController");
+const verifyToken = require("../../middlewares/auth");
+const auth = require("../../middlewares/auth");
+var laborsRoutes = Router();
 
-laborsRoutes.get("/:id", laborController.read)
-laborsRoutes.post("/create", laborController.create)
-laborsRoutes.put("/update", laborController.update)
-laborsRoutes.delete("/delete/:id", laborController.delete)
+laborsRoutes.get("/:id", verifyToken, laborController.read);
+laborsRoutes.post("/create", verifyToken, laborController.create);
+laborsRoutes.put("/update", verifyToken, laborController.update);
+laborsRoutes.delete("/delete/:id", verifyToken, laborController.delete);
 
-module.exports = laborsRoutes
+module.exports = laborsRoutes;

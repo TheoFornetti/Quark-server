@@ -1,10 +1,22 @@
-const {Router} = require("express")
-const challengeController = require("../../controller/challengeController/challengeController")
+const { Router } = require("express");
+const challengeController = require("../../controller/challengeController/challengeController");
+const verifyToken = require("../../middlewares/auth");
 
-var challengeRouter = Router()
+var challengeRouter = Router();
 
-challengeRouter.post("/create", challengeController.create)
-challengeRouter.delete("/delete/:id", challengeController.delete)
-challengeRouter.get("/getQuestionnaire/:id", challengeController.get)
+challengeRouter.post("/create", verifyToken, challengeController.create);
+challengeRouter.delete("/delete/:id", verifyToken, challengeController.delete);
+challengeRouter.get(
+  "/getQuestionnaire/:id",
+  verifyToken,
+  challengeController.get
+);
+challengeRouter.post("/getAllQuestionnaires/", challengeController.getAll);
+challengeRouter.post(
+  "/correctExam",
+  verifyToken,
+  challengeController.correctExam
+);
+challengeRouter.put("/update", verifyToken, challengeController.update);
 
-module.exports = challengeRouter
+module.exports = challengeRouter;

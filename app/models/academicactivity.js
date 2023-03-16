@@ -23,16 +23,6 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
       },
-      description: {
-        type: DataTypes.STRING,
-        allowNull: true,
-        validate: {
-          len: {
-            args: [0, 100],
-            msg: "La descripcion no puede tener mas de 100 caracteres",
-          },
-        },
-      },
       beginDate: {
         type: DataTypes.DATE,
         allowNull: false,

@@ -14,7 +14,7 @@ const handleUpload = (file, cb) => {
   const fileName1 = fileName.split(" ").join("");
   const newFile = bucket.file(`${fileName1}-${Date.now()}.${fileExtension}`);
 
-  console.log(newFile);
+  // console.log(newFile);
 
   const stream = newFile.createWriteStream({
     metadata: {
@@ -44,7 +44,7 @@ async function uploadGenaralImg(image, dbImg) {
   if (dbImg.includes("none")) {
     var rta = handleUpload(image, (err, data) => {
       if (err) {
-        console.log(err.message);
+        // console.log(err.message);
         throw new Error("Error uploading image");
       }
     });
@@ -65,7 +65,7 @@ async function uploadGenaralImg(image, dbImg) {
 
     var rta = handleUpload(image, (err, data) => {
       if (err) {
-        console.log(err.message);
+        // console.log(err.message);
         throw new Error("Error uploading image");
       }
     });

@@ -12,7 +12,6 @@ async function createLabors(professionalProfileId, labors){
         endDate: labors.endDate,
         state: labors.state,
         title: labors.title,
-        description: labors.description,
         professionalProfileId
     })
     return rta

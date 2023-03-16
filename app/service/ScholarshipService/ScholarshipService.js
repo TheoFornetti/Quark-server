@@ -9,7 +9,7 @@ const uploadGenaralImg = require("../../controller/imgController/generalImg");
 
 async function manualEnrollment(userid, courseid) {
   try {
-    const url = `http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&&wsfunction=enrol_manual_enrol_users&enrolments[0][roleid]=5&enrolments[0][userid]=${userid}&enrolments[0][courseid]=${courseid}&moodlewsrestformat=json`;
+    const url = `${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&&wsfunction=enrol_manual_enrol_users&enrolments[0][roleid]=5&enrolments[0][userid]=${userid}&enrolments[0][courseid]=${courseid}&moodlewsrestformat=json`;
 
     var response = await fetch(url);
     var data = await response.json();
@@ -20,7 +20,7 @@ async function manualEnrollment(userid, courseid) {
 
 async function passed(userid, courseid) {
   try {
-    const url = `http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&&wsfunction=gradereport_user_get_grade_items&userid=${userid}&courseid=${courseid}&moodlewsrestformat=json`;
+    const url = `${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&&wsfunction=gradereport_user_get_grade_items&userid=${userid}&courseid=${courseid}&moodlewsrestformat=json`;
 
     var response = await fetch(url);
     var data = await response.json();
@@ -40,7 +40,7 @@ async function manualCourseEnrol(userid, course, pass) {
   try {
     if (pass > 7) {
       course.forEach(async (courseid) => {
-        const url = `http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&&wsfunction=enrol_manual_enrol_users&enrolments[0][roleid]=5&enrolments[0][userid]=${userid}&enrolments[0][courseid]=${courseid}&moodlewsrestformat=json`;
+        const url = `${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&&wsfunction=enrol_manual_enrol_users&enrolments[0][roleid]=5&enrolments[0][userid]=${userid}&enrolments[0][courseid]=${courseid}&moodlewsrestformat=json`;
 
         var response = await fetch(url);
         var data = await response.json();

@@ -16,6 +16,7 @@ async function createEvent(event, img) {
     const imgUrl = await uploadGenaralImg(img, "none");
     var rta = await events.create({
       title: event.title,
+      speaker: event.speaker,
       description: event.description,
       eventDate: event.eventDate,
       link: event.link,
@@ -36,7 +37,7 @@ async function createEvent(event, img) {
     }*/
     return rta;
   } catch (err) {
-    return err;
+    console.log(err);
   }
 }
 
@@ -73,7 +74,7 @@ async function updateEvent(event, img) {
         state: event.state,
         visibility: event.visibility,
         isSaved: event.isSaved,
-        img: imgUrl
+        img: imgUrl,
       },
       { where: { id: event.eventid } }
     );
@@ -127,11 +128,15 @@ async function getClosestEvent() {
   return rows[0];
 }
 
-async function getFutureEvents(page) {
+async function getFutureEvents(page, userId) {
+  var row = [];
+  var participantList = await participant.findAll({
+    where: { professionalProfileId: userId },
+  });
   var actualDate = new Date();
   let options = {
-    limit: 2,
-    offset: +page * 2,
+    limit: 3,
+    offset: +page * 3,
     where: {
       eventDate: {
         [Op.gte]: actualDate,
@@ -145,9 +150,25 @@ async function getFutureEvents(page) {
 
   var { count, rows } = await events.findAndCountAll(options);
 
+  if (participantList.length != 0) {
+    rows.forEach((event) => {
+      var found = participantList.findIndex((p) => p.eventId == event.id);
+
+      if (found == -1) {
+        row.push(event);
+      }
+    });
+  } else {
+    rows.forEach((event) => {
+      console.log(event.id)
+      row.push(event);
+    });
+  }
+
+
   var futureEventsObject = {
     count,
-    rows,
+    row,
   };
 
   return futureEventsObject;
@@ -246,6 +267,11 @@ async function filterEvents(tagsId, dates) {
   }
 }
 
+async function getAllEventsParticipants() {
+  var participantList = await participant.findAll();
+  return participantList;
+}
+
 module.exports = {
   createEvent,
   updateEvent,
@@ -255,4 +281,5 @@ module.exports = {
   getAllEvents,
   filterEvents,
   getClosestEvent,
+  getAllEventsParticipants,
 };

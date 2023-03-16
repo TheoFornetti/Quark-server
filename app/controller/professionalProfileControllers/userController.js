@@ -87,7 +87,7 @@ var userController = {
                 careerSelector(moodleUserData.listaCurso, moodleUserData.id);
                 
                 var moodleData = {moodleUserData}
-               
+               console.log(moodleData)
                 res.send(moodleData);
               }).catch(err => res.status(400).json({msg: err.message}));
             }).catch(err => res.status(400).json({msg: err.message}));

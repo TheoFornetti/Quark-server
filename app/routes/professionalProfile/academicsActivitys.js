@@ -6,6 +6,6 @@ const academicsRoutes = Router();
 academicsRoutes.get("/:id", verifyToken, academicController.read);
 academicsRoutes.post("/create", verifyToken, academicController.create);
 academicsRoutes.put("/update", verifyToken, academicController.update);
-academicsRoutes.delete("/delete/:id", verifyToken, academicController.delete);
+academicsRoutes.delete("/delete/:id", verifyToken,  academicController.delete);
 
 module.exports = academicsRoutes;

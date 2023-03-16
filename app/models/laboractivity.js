@@ -22,13 +22,6 @@ module.exports = (sequelize, DataTypes) => {
         msg: "El nombre de la compañia tiene que tener entre 6 y 50 caracteres"
       }}
     },
-    description: {
-      type: DataTypes.STRING,
-      validate:{len: {
-        args:[0,100],
-        msg: "La descripcion no puede tener mas de 100 caracteres"
-      }}
-    },
     beginDate: {
       type: DataTypes.DATE,
       allowNull: true,

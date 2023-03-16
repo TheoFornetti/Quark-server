@@ -4,7 +4,7 @@ const fetch = require("node-fetch")
 async function agregarInsignias(user){
     let userBadges = {};
     let badgesList = [];
-    const core_badges_get_user_badges = `http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_badges_get_user_badges&userid=${user.id}&moodlewsrestformat=json`
+    const core_badges_get_user_badges = `${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_badges_get_user_badges&userid=${user.id}&moodlewsrestformat=json`
 
     let response = await fetch(core_badges_get_user_badges)
     let data = await response.json()

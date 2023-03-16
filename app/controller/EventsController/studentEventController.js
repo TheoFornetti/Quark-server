@@ -34,6 +34,15 @@ var studentEventController = {
         }catch(err){
             res.sendStatus(500)
         }
+    },
+    enrollStudent: async (req,res)=>{
+        
+        try{
+            await enrollUser(req.body.userId, req.body.eventId)
+            res.sendStatus(200)
+        }catch(err){
+            res.sendStatus(500)
+        }
     }
 }
 

@@ -5,7 +5,7 @@ async function agregarCursos(usuario) {
   let usuarioCurso;
   let curso;
   
-  const core_enrol_get_users_courses = `http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&&wsfunction=core_enrol_get_users_courses&userid=${usuario.id}&moodlewsrestformat=json`;
+  const core_enrol_get_users_courses = `${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&&wsfunction=core_enrol_get_users_courses&userid=${usuario.id}&moodlewsrestformat=json`;
 
   try {
     let response = await fetch(core_enrol_get_users_courses);

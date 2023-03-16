@@ -20,5 +20,6 @@ eventsRoutes.post("/filter", eventController.filterEvents);
 eventsRoutes.put("/update", upload.single('file'), verifyToken, eventController.update);
 eventsRoutes.delete("/delete/:id", verifyToken, eventController.delete);
 eventsRoutes.get("/closestEvent", eventController.closestEvents);
+eventsRoutes.get("/getAllParticipants", eventController.getAllParticipants)
 
 module.exports = eventsRoutes;

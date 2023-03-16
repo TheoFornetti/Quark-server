@@ -7,11 +7,11 @@ async function getIndependent(professionalProfileId){
 
 async function createIndependent(professionalProfileId, independent){
     var rta = independentActivity.create({
-        beginDate: independent.beginDate,
-        endDate: independent.endDate,
-        state: independent.state,
+    
+        
         description: independent.description,
         title: independent.title,
+        projectUrl: independent.url,
         professionalProfileId
     })
     return rta
@@ -20,10 +20,10 @@ async function createIndependent(professionalProfileId, independent){
 async function updateIndependent(id,independent){
     var rta =  independentActivity.update({
        
-        beginDate: independent.beginDate,
-        endDate: independent.endDate,
-        state: independent.state,
-        title: independent.title
+        description: independent.description,
+        title: independent.title,
+        projectUrl: independent.url,
+
     },{where: {id}})
     return rta
 }

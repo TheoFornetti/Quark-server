@@ -37,7 +37,8 @@ module.exports = (sequelize, DataTypes) => {
     birthdate: DataTypes.DATE,
     imgUrl: DataTypes.STRING, 
     linkedIn: DataTypes.STRING,
-    discord: DataTypes.STRING
+    discord: DataTypes.STRING,
+    
     
     
     

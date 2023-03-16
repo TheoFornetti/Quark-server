@@ -89,7 +89,7 @@ async function updateUser(professionalProfileId, generalData){
     console.log(generalData)
     console.log(professionalProfileId)
     
-    var response = await fetch(`http://34.71.113.200/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_user_update_users&moodlewsrestformat=json&users[0][id]=${professionalProfileId}&users[0][phone2]=${generalData.phone}&users[0][city]=${generalData.city}&users[0][country]=${generalData.country}&users[0][firstname]=${generalData.firstname}&users[0][lastname]=${generalData.lastname}&users[0][idnumber]=${generalData.idnumber}`)
+    var response = await fetch(`${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_user_update_users&moodlewsrestformat=json&users[0][id]=${professionalProfileId}&users[0][phone2]=${generalData.phone}&users[0][city]=${generalData.city}&users[0][country]=${generalData.country}&users[0][firstname]=${generalData.firstname}&users[0][lastname]=${generalData.lastname}&users[0][idnumber]=${generalData.idnumber}`)
    
     console.log(response)
 

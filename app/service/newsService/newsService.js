@@ -54,12 +54,14 @@ async function createNew(newObject) {
     endDate: newObject.endDate,
   });
 
-  newObject.courseList.forEach(async (course) => {
-    await courseNews.create({
-      newsId: rta.id,
-      courseId: course,
+  if(newObject.courseList.length > 0){
+    newObject.courseList.forEach(async (course) => {
+      await courseNews.create({
+        newsId: rta.id,
+        courseId: course,
+      });
     });
-  });
+  }
 
   return rta;
 }

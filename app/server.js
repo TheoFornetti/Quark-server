@@ -26,7 +26,7 @@ const Port = process.env.PORT || 3030
 
 const app = express();
 app.use(cors({
-    origin: ["http://34.71.113.200:3000"],
+    origin: [`http://34.66.2.129:3000`],
     methods:["GET","POST","PUT","DELETE","UPDATE"],
     credentials: true
 }))
@@ -52,7 +52,6 @@ app.use("/userImg", userImg)
 app.use("/register", registerRoutes)
 app.use("/scholarship", scholarshipRoutes)
 app.use("/challenge", challengeRouter)
-
 
 app.get("/",(req,res)=>{
     res.send("Funciona!")

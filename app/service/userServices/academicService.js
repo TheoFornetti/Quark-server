@@ -9,7 +9,6 @@ async function getAcademics(professionalProfileId) {
 async function createAcademics(professionalProfileId, academics) {
   var rta = academicActivity.create({
     institution: academics.institution,
-    description: academics.description,
     beginDate: academics.beginDate,
     endDate: academics.endDate,
     state: academics.state,
@@ -38,6 +37,7 @@ async function updateAcademics(id, academics) {
 
 async function deleteAcademics(id) {
   
+
   var rta = academicActivity.destroy({
     where: { id },
   });

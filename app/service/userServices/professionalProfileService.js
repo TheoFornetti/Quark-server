@@ -99,6 +99,8 @@ async function updateUser(professionalProfileId, generalData){
         birthdate: generalData.birthdate,
         linkedIn: generalData.linkedIn,
         discord: generalData.discord,
+        github: generalData.github,
+        gender: generalData.gender
     }, {
         where: {
             professionalProfileId

@@ -23,6 +23,14 @@ module.exports = (sequelize, DataTypes) => {
       type:DataTypes.INTEGER,
       defaultValue:0
     },
+    acceptLanguageAgreement: {
+      type:DataTypes.INTEGER,
+      defaultValue:0
+    },
+    acceptRecruitingAgreement: {
+      type:DataTypes.INTEGER,
+      defaultValue:0
+    },
    
   }, {
     sequelize,

@@ -14,15 +14,29 @@ async function agregarCursos(usuario) {
       var date = new Date(
                   cursos.lastaccess * 1000
                 ).toLocaleDateString()
-      curso = {
-        fullName: cursos.fullname,
-        lastaccess: date,
-        idCurso: cursos.id,
-        progress: cursos.progress,
-        url: "",
-        
-      };
-      usuario.listaCurso.push(curso);
+                if(cursos.fullname.match("Quark Game Jam")){
+                            curso = {
+                              fullName: cursos.fullname,
+                              lastaccess: cursos.lastaccess,
+                              idCurso: cursos.id,
+                              progress: cursos.progress,
+                              timestarted: date,
+                              url: "",
+                              
+                            };
+                            usuario.listaGameJams.push(curso);
+                          }else{
+                            curso = {
+                              fullName: cursos.fullname,
+                              lastaccess: cursos.lastaccess,
+                              idCurso: cursos.id,
+                              progress: cursos.progress,
+                              timestarted: date,
+                              url: "",
+                              
+                            };
+                            usuario.listaCurso.push(curso);
+                          }
     })
     
 

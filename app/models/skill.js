@@ -15,7 +15,14 @@ module.exports = (sequelize, DataTypes) => {
   }
   skill.init({
     name: DataTypes.STRING,
-    career: DataTypes.INTEGER
+    career: DataTypes.INTEGER,
+    description: {
+      type: DataTypes.STRING,
+      validate:{len: {
+        args:[0,100],
+        msg: "La descripcion no puede tener mas de 100 caracteres"
+      }}
+    },
   }, {
     sequelize,
     modelName: 'skill',

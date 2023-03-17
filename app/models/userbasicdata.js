@@ -38,7 +38,10 @@ module.exports = (sequelize, DataTypes) => {
     imgUrl: DataTypes.STRING, 
     linkedIn: DataTypes.STRING,
     discord: DataTypes.STRING,
-    
+    github: DataTypes.STRING,
+    gender: DataTypes.STRING,
+    yearsOfExp: DataTypes.INTEGER,
+    timeDedicate: DataTypes.INTEGER,
     
     
     

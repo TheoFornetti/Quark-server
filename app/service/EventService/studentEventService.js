@@ -1,4 +1,4 @@
-const { where } = require("sequelize");
+const { where, Op } = require("sequelize");
 const { participant,events } = require("../../models/index");
 
 async function getEvents(professionalProfileId) {
@@ -46,4 +46,8 @@ async function deleteStudentEvent(eventId){
    participant.destroy({where:{eventId}})
 }
 
-module.exports = { getEvents, enrollUser, updateStudentEvent, deleteStudentEvent };
+async function deleteEnrollment(professionalProfileId, eventId){
+  await  participant.destroy({where:{[Op.and]: [{professionalProfileId},{eventId}]}})
+}
+
+module.exports = { getEvents, enrollUser, updateStudentEvent, deleteStudentEvent,deleteEnrollment };

@@ -1,4 +1,4 @@
-const { getEvents, enrollUser, updateStudentEvent, deleteStudentEvent } = require("../../service/EventService/studentEventService")
+const { getEvents, enrollUser, updateStudentEvent, deleteStudentEvent, deleteEnrollment } = require("../../service/EventService/studentEventService")
 
 var studentEventController = {
     getStudentEvents: async (req,res)=>{
@@ -43,7 +43,16 @@ var studentEventController = {
         }catch(err){
             res.sendStatus(500)
         }
+    },
+    deleteEnrollment: async(req,res)=>{
+        try{
+            await deleteEnrollment(req.body.userId, req.body.eventId)
+            res.sendStatus(200)
+        }catch(err){
+            console.log(err)
+        }
     }
+
 }
 
 module.exports = studentEventController

@@ -1,9 +1,9 @@
 const fetch = require("node-fetch");
-const { temporal } = require("../../models/index");
+const { temporal, notDevelopers } = require("../../models/index");
 const mysql = require("mysql2");
 const bcrypt = require("bcrypt");
-const NodeRsa = require("node-rsa") 
-const key = new NodeRsa({b: 512});
+const NodeRsa = require("node-rsa");
+const key = new NodeRsa({ b: 512 });
 let conexion;
 
 conexion = mysql.createConnection({
@@ -34,7 +34,6 @@ function obtenerSecret(username) {
 
 async function obtenerSecreto(username) {
   try {
-    
     const data = await obtenerSecret(username); // almacenamos el resultado por si queremos trabajar con el mismo
     return data;
   } catch (err) {
@@ -43,23 +42,23 @@ async function obtenerSecreto(username) {
 }
 
 async function Exist(user) {
-
-  var email = user.email
-  var username = user.username
+  var email = user.email;
+  var idnumber = user.idnumber;
 
   var url =
-    process.env.VM_IP+"/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_user_get_users&criteria[0][key]=confirm&criteria[0][value]=true&moodlewsrestformat=json";
+    process.env.VM_IP +
+    "/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_user_get_users&criteria[0][key]=confirm&criteria[0][value]=true&moodlewsrestformat=json";
 
   var response = await fetch(url);
   var data = await response.json();
 
-  var found = data.users.findIndex(
-    (element) => element.username == user.username
-  );
+  // var found = data.users.findIndex(
+  //   (element) => element.username == user.username
+  // );
 
-  if (found != -1) {
-    throw new Error("El username ya existe!");
-  }
+  // if (found != -1) {
+  //   throw new Error("El username ya existe!");
+  // }
 
   var found1 = data.users.findIndex((element) => element.email == user.email);
 
@@ -67,38 +66,56 @@ async function Exist(user) {
     throw new Error("Este email ya esta en uso!");
   }
 
-  var found2 = data.users.findIndex((element) => element.idnumber == user.idnumber);
+  var found2 = data.users.findIndex(
+    (element) => element.idnumber == user.idnumber
+  );
 
-  if (found2 != -1) {
-    throw new Error("Este Id ya esta en uso!");
-  }
+  // if (found2 != -1) {
+  //   throw new Error("Este Id ya esta en uso!");
+  // }
 
+  // var found3 = temporal.findAll({where:{idnumber}});
 
-  var rta = await temporal.findAll({where: {username}})
+  // if (found3.length != 0) {
+  //   throw new Error("Este Id ya esta en uso!");
+  // }
 
-  if(rta.length != 0){
-    throw new Error("El username ya existe!");
-  }
+  // var rta = await temporal.findAll({where: {username}})
 
-  var rta1 = await temporal.findAll({where: {email}})
+  // if(rta.length != 0){
+  //   throw new Error("El username ya existe!");
+  // }
 
-  if(rta1.length != 0){
+  var rta1 = await temporal.findAll({ where: { email } });
+
+  if (rta1.length != 0) {
     throw new Error("Este email ya esta en uso!");
   }
 
+  var found = await notDevelopers.findAll({where:{email}})
+
+  if(found.length != 0){
+      throw new Error("Ya intentaste de registrarte con este mail")
+  }
 }
 
-async function createTemporal(user) {
-    // var password = key.encrypt(user.password, "base64" )
+async function createTemporal(user, rta) {
+  var username0 = user.firstName + user.lastName;
 
+  var randomNumber1 = Math.round(Math.random() * 100);
+  var randomNumber2 = Math.round(Math.random() * 100);
+  username0 = username0 + randomNumber1 + randomNumber2;
+  var username = username0.toLowerCase()
   await temporal.create({
-    username: user.username,
+    username,
     firstName: user.firstName,
     lastName: user.lastName,
     password: user.password,
     email: user.email,
-    idnumber: user.idnumber
+    idnumber: user.idnumber,
   });
+
+  return username;
 }
 
 async function getTemporal(id) {
@@ -108,14 +125,12 @@ async function getTemporal(id) {
 
 async function createMoodleUser(user) {
   try {
-    console.log(user[0].email)
-    
+    console.log(user[0].email);
+
     var url = `${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=auth_email_signup_user&username=${user[0].username}&password=${user[0].password}&firstname=${user[0].firstName}&lastname=${user[0].lastName}&email=${user[0].email}&moodlewsrestformat=json`;
 
     var response = await fetch(url);
     var data = await response.json();
-    
-   
   } catch (err) {
     throw new Error("No se pudo crear el usuario!" + err.message);
   }
@@ -124,7 +139,7 @@ async function createMoodleUser(user) {
 async function confirmUser(user) {
   try {
     var moodleUser = await obtenerSecreto(user[0].username);
-    
+
     var url = `${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_auth_confirm_user&username=${user[0].username}&secret=${moodleUser[0].secret}&moodlewsrestformat=json`;
     var response = await fetch(url);
     var data = await response.json();
@@ -146,13 +161,15 @@ async function enrollUser(id) {
   }
 }
 
-async function addIdNumber(id, user){
-  try{
-    console.log("Hola")
-    console.log(user[0].idnumber)
-    var response = await fetch(`${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_user_update_users&moodlewsrestformat=json&users[0][id]=${id}&users[0][idnumber]=${user[0].idnumber}`)
-  }catch{
-    throw new Error("No se pudo agregar el dni")
+async function addIdNumber(id, user) {
+  try {
+    console.log("Hola");
+    console.log(user[0].idnumber);
+    var response = await fetch(
+      `${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_user_update_users&moodlewsrestformat=json&users[0][id]=${id}&users[0][idnumber]=${user[0].idnumber}`
+    );
+  } catch {
+    throw new Error("No se pudo agregar el dni");
   }
 }
 
@@ -163,5 +180,5 @@ module.exports = {
   createMoodleUser,
   confirmUser,
   enrollUser,
-  addIdNumber
+  addIdNumber,
 };

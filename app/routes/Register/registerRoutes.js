@@ -4,7 +4,7 @@ const registerRoutes = Router()
 
 
 
-registerRoutes.post("/", registerController.create)
+registerRoutes.post("/:rta", registerController.create)
 registerRoutes.get("/moodleSingUp/:id", registerController.createMoodle)
 
 module.exports = registerRoutes

@@ -48,7 +48,7 @@ async function getMoodleCourses() {
 }
 
 async function createNew(newObject) {
-  var rta = news.create({
+  var rta = await news.create({
     title: newObject.title,
     content: newObject.content,
     endDate: newObject.endDate,

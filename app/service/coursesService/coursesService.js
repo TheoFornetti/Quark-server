@@ -15,7 +15,7 @@ async function getMoodleCourses() {
 
         var course = {
           idCurso: course.id,
-          fullname: course.fullname,
+          fullName: course.fullname,
           url,
         };
 

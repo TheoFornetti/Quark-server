@@ -18,6 +18,7 @@ const newsRoutes = require("./routes/newsRoutes/newsRoutes");
 const tagRoutes = require("./routes/EventsRoutes/tagsRoutes");
 const userImg = require("./routes/imgRoutes/userImgRoutes");
 const registerRoutes = require("./routes/Register/registerRoutes");
+const coursesRouter = require("./routes/coursesRoutes/coursesRoutes");
 const scholarshipRoutes = require("./routes/ scholarshipRoutes/ scholarshipRoutes");
 const challengeRouter = require("./routes/challngeRoutes/challengeRoutes");
 
@@ -52,6 +53,7 @@ app.use("/userImg", userImg)
 app.use("/register", registerRoutes)
 app.use("/scholarship", scholarshipRoutes)
 app.use("/challenge", challengeRouter)
+app.use("/courses", coursesRouter)
 
 app.get("/",(req,res)=>{
     res.send("Funciona!")

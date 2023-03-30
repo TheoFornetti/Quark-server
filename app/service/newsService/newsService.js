@@ -27,7 +27,7 @@ async function getMoodleCourses() {
   try {
     var courseList = [];
     var response = await fetch(
-      "https://quark.academy/webservice/rest/server.php?wstoken=11e282e69970c31ed54f38925921b88f&wsfunction=core_course_get_courses&moodlewsrestformat=json"
+      `${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_course_get_courses&moodlewsrestformat=json`
     );
 
     var data = await response.json();

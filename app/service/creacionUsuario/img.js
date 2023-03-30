@@ -4,7 +4,7 @@ let data = [];
 async function obtenerImg(){
     let listaImagenes = [];
     var lista = [];
-  const core_course_get_courses_by_field = `${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_course_get_courses_by_field&moodlewsrestformat=json`;
+  const core_course_get_courses_by_field = `${process.env.VM_IP}/webservice/rest/server.php?wstoken=${process.env.TOKEN}&wsfunction=core_course_get_courses_by_field&moodlewsrestformat=json`;
 
   try{
     let response = await fetch(core_course_get_courses_by_field)

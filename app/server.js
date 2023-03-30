@@ -60,7 +60,7 @@ app.get("/",(req,res)=>{
 })
 
 app.listen(Port, (req,res)=>{
-    sequelize.sync({alter:false}).then(()=>{
+    sequelize.sync({force:false}).then(()=>{
         console.log("Connection has been stablish")
     }).catch(err=>{
         console.log(err)

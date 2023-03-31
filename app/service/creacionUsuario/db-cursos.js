@@ -6,15 +6,13 @@ app.use(express.urlencoded({extended:false}))
 app.use(express.json())
 let conexion
 
- conexion = mysql.createConnection({
-    // host: "34.135.139.113",
-    // user:'webServicesReadOnly',
-    // password:'Redcouch.2020',
-    // database:'bitnami_moodle'
-    host: "localhost",
-    user:'root',
-    password:'R#fT7gH9',
-    database:'moodle'
+conexion = mysql.createConnection({
+
+    user: process.env.MOODLE_USERNAME ,
+    password: process.env.MOODLE_PASSWORD,
+    database: process.env.MOODLE_DATABASE,
+    host: process.env.MOODLE_HOST,
+    
 })
 
 const funciona = () => {

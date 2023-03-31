@@ -24,6 +24,16 @@ async function crearUsuario(email) {
     if(data.users.length == 0){
       throw new Error("No existe ese nombre de usuario")
     }
+
+    let phone = data.users[0].phone2
+    let city = data.users[0].city
+
+    if(phone == "undefined" || phone == undefined){
+      phone = ""
+    }
+    if(city == "undefined" || city == undefined){
+      city = ""
+    }
     
     usuario = {
       id: data.users[0].id,
@@ -32,8 +42,8 @@ async function crearUsuario(email) {
       lastname: data.users[0].lastname,
       email: data.users[0].email,
       country: data.users[0].country,
-      city: data.users[0].city,
-      phone: data.users[0].phone2,
+      city,
+      phone,
       idnumber: data.users[0].idnumber,
       badgesList,
       listaCurso,

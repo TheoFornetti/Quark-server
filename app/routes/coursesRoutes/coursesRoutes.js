@@ -4,6 +4,6 @@ const { coursesController } = require("../../controller/coursesController/course
 const verifyToken = require("../../middlewares/auth");
 
 var coursesRouter = Router();
-coursesRouter.get("/getCoursesLists", coursesController.getCoursesLists);
+coursesRouter.post("/getCoursesLists", coursesController.getCoursesLists);
 
 module.exports = coursesRouter;

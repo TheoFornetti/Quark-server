@@ -84,7 +84,8 @@ async function agregarCursos(usuario) {
 }
 
  async function devolverUsuarioCurso(usuario) {
-  let usuarioCurso = await agregarCursos(usuario);
+  
+    let usuarioCurso = await agregarCursos(usuario);
 
   return usuarioCurso;
 }

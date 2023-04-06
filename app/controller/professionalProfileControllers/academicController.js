@@ -16,7 +16,7 @@ var academicController = {
       });
   },
   create: async (req, res) => {
-    if(req.body.academics.endDate == '') {
+    if(req.body.academics.endDate == ('' || null)) {
       req.body.academics.endDate = undefined
     }
     createAcademics(req.body.userid, req.body.academics)
@@ -26,8 +26,8 @@ var academicController = {
       });
   },
   update: async (req, res) => {
-    if(req.body.academics.endDate == '') {
-      req.body.academics.endDate = undefined
+    if (req.body.academics.endDate == "" || req.body.academics.endDate == null) {
+      req.body.academics.endDate = undefined;
     }
     updateAcademics(req.body.id, req.body.academics)
       .then(() => res.status(200).json({ msg: "Se actualizo con exito" }))

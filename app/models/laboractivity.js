@@ -1,7 +1,5 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
+"use strict";
+const { Model } = require("sequelize");
 module.exports = (sequelize, DataTypes) => {
   class laborActivity extends Model {
     /**
@@ -10,47 +8,58 @@ module.exports = (sequelize, DataTypes) => {
      * The `models/index` file will call this method automatically.
      */
     static associate(models) {
-      laborActivity.belongsTo(models.professionalProfile)
+      laborActivity.belongsTo(models.professionalProfile);
     }
   }
-  laborActivity.init({
-    company: {
-      type: DataTypes.STRING,
-      allowNull: false,
-      validate:{len: {
-        args:[2,50],
-        msg: "El nombre de la compañia tiene que tener entre 6 y 50 caracteres"
-      }}
+  laborActivity.init(
+    {
+      company: {
+        type: DataTypes.STRING,
+        allowNull: false,
+        validate: {
+          len: {
+            args: [2, 50],
+            msg: "El nombre de la compañia tiene que tener entre 2 y 50 caracteres",
+          },
+        },
+      },
+      beginDate: {
+        type: DataTypes.DATE,
+        allowNull: true,
+      },
+      endDate: {
+        type: DataTypes.DATE,
+        allowNull: true,
+        validate: {
+          dateValidator() {
+            if (this.endDate) {
+              var fechaInicial = new Date(this.beginDate);
+              var fechaFinal = new Date(this.endDate);
+              if (fechaInicial > fechaFinal) {
+                throw new Error(
+                  "La fecha de inicion no puede ser mayor que la fecha de fin"
+                );
+              }
+            }
+          },
+        },
+      },
+      state: DataTypes.STRING,
+      title: {
+        type: DataTypes.STRING,
+        validate: {
+          len: {
+            args: [6, 50],
+            msg: "El titulo tiene que tener entre 6 y 50 caracteres",
+          },
+        },
+      },
     },
-    beginDate: {
-      type: DataTypes.DATE,
-      allowNull: true,
-    },
-    endDate: {
-      type: DataTypes.DATE,
-      allowNull: true,
-      validate:{
-        dateValidator() {
-          var fechaInicial = new Date(this.beginDate)
-          var fechaFinal = new Date(this.endDate) 
-        if (fechaInicial>fechaFinal) {
-          throw new Error("La fecha de inicion no puede ser mayor que la fecha de fin");
-        }
-      }
-      }
-    },
-    state: DataTypes.STRING,
-    title: {
-      type: DataTypes.STRING,
-      validate:{len: {
-        args:[6,50],
-        msg: "El titulo tiene que tener entre 6 y 50 caracteres"
-      }}
+    {
+      sequelize,
+      modelName: "laborActivity",
+      timestamps: false,
     }
-  }, {
-    sequelize,
-    modelName: 'laborActivity',
-    timestamps: false
-  });
+  );
   return laborActivity;
 };

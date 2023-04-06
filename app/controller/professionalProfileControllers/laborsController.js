@@ -16,8 +16,8 @@ var laborController = {
       });
   },
   create: async (req, res) => {
-    if(req.body.labors.endDate == '') {
-      req.body.labors.endDate = undefined
+    if (req.body.labors.endDate == "" || req.body.labors.endDate == null) {
+      req.body.labors.endDate = undefined;
     }
     createLabors(req.body.userid, req.body.labors)
       .then((labors) => {
@@ -28,8 +28,8 @@ var laborController = {
       });
   },
   update: async (req, res) => {
-    if(req.body.labors.endDate == '') {
-      req.body.labors.endDate = undefined
+    if (req.body.labors.endDate == "" || req.body.labors.endDate == null) {
+      req.body.labors.endDate = undefined;
     }
     updateLabors(req.body.id, req.body.labors)
       .then(() => {

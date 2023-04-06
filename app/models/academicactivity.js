@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           len: {
             args: [2, 50],
-            msg: "El nombre de la institucion tiene que tener entre 6 y 50 caracteres",
+            msg: "El nombre de la institucion tiene que tener entre 2 y 50 caracteres",
           },
         },
       },
@@ -32,12 +32,14 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: true,
         validate: {
           dateValidator() {
-            var fechaInicial = new Date(this.beginDate);
-            var fechaFinal = new Date(this.endDate);
-            if (fechaInicial > fechaFinal) {
-              throw new Error(
-                "La fecha de inicion no puede ser mayor que la fecha de fin"
-              );
+            if (this.endDate) {
+              var fechaInicial = new Date(this.beginDate);
+              var fechaFinal = new Date(this.endDate);
+              if (fechaInicial > fechaFinal) {
+                throw new Error(
+                  "La fecha de inicion no puede ser mayor que la fecha de fin"
+                );
+              }
             }
           },
         },

@@ -27,7 +27,7 @@ const Port = process.env.PORT || 3030
 
 const app = express();
 app.use(cors({
-    origin: [`${process.env.CLIENT_IP}`],
+    origin: [`${process.env.CLIENT_IP}`, "http://35.184.2.206"],
     methods:["GET","POST","PUT","DELETE","UPDATE"],
     credentials: true
 }))

@@ -24,15 +24,17 @@ async function crearUsuario(email) {
       throw new Error("No existe ese nombre de usuario")
     }
 
-    let phone = data.users[0].phone2
-    let city = data.users[0].city
-
-    if(phone == "undefined" || phone == undefined){
-      phone = ""
+    function getValueOrDefault(obj, propName, defaultValue = "") {
+      if (typeof obj[propName] === "undefined" || obj[propName] === null) {
+        return defaultValue;
+      }
+      return obj[propName];
     }
-    if(city == "undefined" || city == undefined){
-      city = ""
-    }
+    
+    const phone = getValueOrDefault(data.users[0], "phone2");
+    const city = getValueOrDefault(data.users[0], "city");
+    const idnumber = getValueOrDefault(data.users[0], "idnumber");
+    const country = getValueOrDefault(data.users[0], "country");
     
     usuario = {
       id: data.users[0].id,
@@ -40,10 +42,10 @@ async function crearUsuario(email) {
       firstname: data.users[0].firstname,
       lastname: data.users[0].lastname,
       email: data.users[0].email,
-      country: data.users[0].country,
+      country,
       city,
       phone,
-      idnumber: data.users[0].idnumber,
+      idnumber,
       badgesList,
       listaCurso,
       listaGameJams

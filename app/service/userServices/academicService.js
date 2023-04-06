@@ -20,11 +20,12 @@ async function createAcademics(professionalProfileId, academics) {
 }
 
 async function updateAcademics(id, academics) {
+  var endDateValue = academics.endDate === undefined ? null : academics.endDate;
   var rta = academicActivity.update(
     {
       institution: academics.institution,
       beginDate: academics.beginDate,
-      endDate: academics.endDate,
+      endDate: endDateValue,
       state: academics.state,
       title: academics.title,
     },

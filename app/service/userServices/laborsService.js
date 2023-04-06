@@ -18,13 +18,15 @@ async function createLabors(professionalProfileId, labors){
 }
 
 async function updateLabors(id,labors){
-    var rta = laborActivity.update({
+    var endDateValue = labors.endDate === undefined ? null : labors.endDate;
+    var rta = await laborActivity.update({
         company: labors.company,
         beginDate: labors.beginDate,
-        endDate: labors.endDate,
+        endDate: endDateValue,
         state: labors.state,
         title: labors.title
     },{where: {id}})
+    
     return rta
 }
 

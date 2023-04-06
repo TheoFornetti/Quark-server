@@ -27,7 +27,7 @@ async function getMoodleCourses() {
   try {
     var courseList = [];
     var response = await fetch(
-      `${process.env.VM_IP}/moodle/webservice/rest/server.php?wstoken=de19f86bde31dfb08f817681f4414238&wsfunction=core_course_get_courses&moodlewsrestformat=json`
+      `${process.env.VM_IP}/webservice/rest/server.php?wstoken=${process.env.TOKEN}&wsfunction=core_course_get_courses&moodlewsrestformat=json`
     );
 
     var data = await response.json();

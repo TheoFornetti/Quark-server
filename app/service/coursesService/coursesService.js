@@ -220,7 +220,8 @@ async function getMoodleCourses(listaCursos) {
       }
     })
 
-    if(unityCounter == 2){
+    
+    if(unrealCounter == 2){
       punrealIntermedio = true
     }else{
       punrealIntermedio = false

@@ -17,8 +17,8 @@ module.exports = (sequelize, DataTypes) => {
     biography: {
       type: DataTypes.STRING,
       validate:{len: {
-        args:[0,200],
-        msg: "La biografia no puede tener mas de 200 caracteres"
+        args:[0,250],
+        msg: "La biografia no puede tener mas de 250 caracteres"
       }}
     },
     score: {

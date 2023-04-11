@@ -18,8 +18,8 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.STRING,
       validate:{len: {
-        args:[0,100],
-        msg: "La descripcion no puede tener mas de 100 caracteres"
+        args:[0,200],
+        msg: "La descripcion no puede tener mas de 200 caracteres"
       }}
     },
 
@@ -27,7 +27,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING,
       validate:{len: {
         args:[3,50],
-        msg: "El titulo tiene que tener entre 6 y 50 caracteres"
+        msg: "El titulo tiene que tener entre 3 y 50 caracteres"
       }}
     },
     projectUrl: DataTypes.STRING

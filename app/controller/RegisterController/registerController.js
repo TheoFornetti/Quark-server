@@ -46,9 +46,11 @@ var registerController = {
     },
     createMoodle: async (req,res)=>{
        try{
+        
             var id = req.params.id
-            console.log(id)
+            
             var user = await getTemporal(req.params.id)
+            
             await createMoodleUser(user)
             var moodleUserId = await confirmUser(user)
             await addIdNumber(moodleUserId, user)

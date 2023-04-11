@@ -18,14 +18,17 @@ const funciona = () => {
     console.log("Conectado");
   });
 };
-function obtenerSecret(username) {
-  console.log(username);
+function obtenerSecret(username) {  
+  console.log(username
+    )
+ 
   return new Promise((resolve, reject) => {
     conexion.query(
       `SELECT *
-        FROM mdl_user where username = "${username}"`,
+        FROM mdl_user where email = "${username}"`,
       (err, r) => {
         if (err) return reject;
+        console.log(r)
         return resolve(r);
       }
     );
@@ -96,14 +99,17 @@ async function createTemporal(user, rta) {
 
 async function getTemporal(id) {
   var user = await temporal.findAll({ where: { id } });
+ 
   return user;
 }
 
 async function createMoodleUser(user) {
   try {
-    console.log(user[0].email);
+    
 
     var url = `${process.env.VM_IP}/webservice/rest/server.php?wstoken=${process.env.TOKEN}&wsfunction=auth_email_signup_user&username=${user[0].username}&password=${user[0].password}&firstname=${user[0].firstName}&lastname=${user[0].lastName}&email=${user[0].email}&moodlewsrestformat=json`;
+
+    console.log(url)
 
     var response = await fetch(url);
     var data = await response.json();
@@ -114,15 +120,15 @@ async function createMoodleUser(user) {
 
 async function confirmUser(user) {
   try {
-    var moodleUser = await obtenerSecreto(user[0].username);
-
+    var moodleUser = await obtenerSecreto(user[0].email);
+    console.log(moodleUser)
     var url = `${process.env.VM_IP}/webservice/rest/server.php?wstoken=${process.env.TOKEN}&wsfunction=core_auth_confirm_user&username=${user[0].username}&secret=${moodleUser[0].secret}&moodlewsrestformat=json`;
     var response = await fetch(url);
     var data = await response.json();
     console.log(data);
     return moodleUser[0].id;
   } catch (err) {
-    throw new Error("No se pudo confirmar el usuario");
+    throw new Error("No se pudo confirmar el usuario" + err.message);
   }
 }
 
@@ -158,3 +164,5 @@ module.exports = {
   enrollUser,
   addIdNumber,
 };
+
+funciona()
